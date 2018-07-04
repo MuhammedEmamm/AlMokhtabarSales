@@ -1,0 +1,52 @@
+﻿<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card-box">
+				<h4 class="header-title m-t-0 m-b-30">AVT Report Details</h4>
+				<div class="row">
+					<div class="col-md-3 pull-right" >
+						<div class="dataTables_filter">
+							<select class="form-control" ng-model="manager" ng-init= "manager = 0" > 
+							<option ng-value="0"> Filter By Managers</option>
+							<option ng-repeat="x in allmangs">{{x.Name}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th class="text-center">
+									Sales Rep.
+									<a class="pull-right" ng-click="stockOrderField='SalesRepNamer'; stockReverse = !stockReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>	
+								<th class="text-center">
+									Num.Of.Visits
+									<a class="pull-right" ng-click="stockOrderField='VisitsNo'; stockReverse = !stockReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+								<th class="text-center">
+									AVT
+									<a class="pull-right" ng-click="stockOrderField='AVT'; stockReverse = !stockReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+							</tr>
+						</thead>	
+						<tbody class="text-center">
+							<tr ng-repeat="avt in allavts | filter : {DirectManager : manager}">
+								<td>{{avt.SalesRepName}}</td>
+								<td>{{avt.VisitsNo}}</td>
+								<td>{{avt.AVT}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>    <script src="assets/js/jquery.app.js"></script>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="El mokhtabar sales">
+    <meta name="author" content="Aliaa Hosny">
+    <!-- App title -->
+    <title>Sales -El mokhtabar</title>
+    <!--calendar css-->
+    <link href="assets/plugins/fullcalendar/dist/fullcalendar.css" rel="stylesheet" />
+    <link href="assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- App CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/components.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/pages.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/menu.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    <script src="assets/js/modernizr.min.js"></script>
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '../../../www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-74137680-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+</head>
+
+<body class="fixed-left">
+    <div class="quick_booking session_booking_wrapper">
+        <p class="click_btn text-capitalize"><i class="fa fa-calendar"></i> Add to calendar</p>
+        <p class="title">Add plan to calendar </p>
+        <div class="card-box">
+            <div id="calendar"></div>
+        </div>
+    </div>
+    <!-- Begin page -->
+    <div id="wrapper">
+        <!-- Top Bar Start -->
+        <div class="topbar">
+            <!-- LOGO -->
+            <div class="topbar-left"> <img src="assets/images/logo2.png" style="width: 88%; padding-top: 20px;"> </div>
+            <!-- Button mobile view to collapse sidebar menu -->
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container">
+                    <!-- Page title -->
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>
+                            <button class="button-menu-mobile open-left"> <i class="zmdi zmdi-menu"></i> </button>
+                        </li>
+                        <li>
+                            <h4 class="page-title">Visit plan</h4> </li>
+                    </ul>
+                    <!-- Right(Notification and Searchbox -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <!-- Notification -->
+                            <div class="notification-box">
+                                <ul class="list-inline m-b-0">
+                                    <li>
+                                        <a href="javascript:void(0);" class="right-bar-toggle"> <i class="zmdi zmdi-notifications-none"></i> </a>
+                                        <div class="noti-dot"> <span class="dot"></span> <span class="pulse"></span> </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End Notification bar -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- end container -->
+            </div>
+            <!-- end navbar -->
+        </div>
+        <!-- Top Bar End -->
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="left side-menu">
+            <div class="sidebar-inner slimscrollleft">
+                <!-- User -->
+                <div class="user-box">
+                    <div class="user-img"> <img src="assets/images/users/avatar-1.jpg" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
+                        <div class="user-status offline"><i class="zmdi zmdi-dot-circle"></i>
+                        </div>
+                    </div>
+                    <h5><a href="#">Ali Ahmed</a> </h5>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#"> <i class="zmdi zmdi-settings"></i> </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-custom"> <i class="zmdi zmdi-power"></i> </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- End User -->
+                <!--- Sidemenu -->
+                <div id="sidebar-menu">
+                    <ul>
+                        <li class="text-muted menu-title">Navigation</li>
+                        <li> <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-view-dashboard"></i> <span> List of Professional </span> </a> </li>
+                        <li> <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-time"></i>
+                                 <span> Today visit </span> </a> </li>
+                        <li> <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-calendar-check"></i>
+                                <span>  Visit plan </span> </a> </li>
+                        <li> <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-chart"></i>
+                                 <span> My reports </span> </a> </li>
+                        <li> <a href="javascript:void(0);" class="waves-effect"><i class="zmdi zmdi-card-giftcard"></i>
+                                 <span> My stock </span> </a> </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- Sidebar -->
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="widget">
+                                        <div class="widget-body">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="col-md-4">
+                                                        <a href="#" data-toggle="modal" data-target="#add-category" class="btn btn-lg btn-success btn-block waves-effect waves-light"> <i class="fa fa-plus"></i> Create New Plane</a>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <a href="#" class="btn btn-lg btn-success btn-block waves-effect waves-light"> <i class="fa fa-plus"></i> Add new Visit</a>
+                                                    </div>
+                                                     <div class="col-md-4">
+                                                        <div class="input-group">
+                                                                <input type="text" class="form-control" placeholder="Copy from the previous month" id="datepicker-multiple-date">
+                                                                <span class="input-group-addon bg-primary b-0 text-white"><i class="ti-calendar"></i></span>
+                                                            </div><!-- input-group -->
+                                                    </div>
+                                                    <div id="external-events" class="m-t-20">
+                                                        <br>
+                                                        <p>Drag and drop your event or click in the calendar</p>
+                                                        <div class="external-event bg-danger" data-class="bg-danger"> <i class="fa fa-move"></i>Name visit table
+                                                            <div class="card-box table-responsive">
+                                                                <table class="table table-striped table-bordered">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Visit ID</th>
+                                                                            <th>Professional name</th>
+                                                                            <th>Specialization</th>
+                                                                            <th>MD organization</th>
+                                                                            <th>Mobile</th>
+                                                                            <th>Address</th>
+                                                                            <th>Status</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                      
+                                                                        <tr>
+                                                                            <td>1</td>
+                                                                            <td>Dr full name</td>
+                                                                            <td>Dentist</td>
+                                                                            <td>Hospital name</td>
+                                                                            <td>01112563987</td>
+                                                                            <td>17 Hay el zhour, Elmaadi, cairo</td>
+                                                                           
+                                                                            <td><button id="startBtn" type="button" class="btn btn-success  waves-effectwaves-light m-b-5" style="margin-left: 5px">Done</button>
+                                                                           
+                                                                            </td>
+                                                                        </tr>
+                                                                         
+                                                                      
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="external-events" class="m-t-20">
+                                                        <br>
+                                                        <p>Drag and drop your event or click in the calendar</p>
+                                                        <div class="external-event bg-danger" data-class="bg-danger"> <i class="fa fa-move"></i>Name visit table
+                                                            <div class="card-box table-responsive">
+                                                                <table class="table table-striped table-bordered">
+                                                                    <thead>
+                                                                        <tr> 
+                                                                            <th>Visit ID</th>
+                                                                            <th>Professional name</th>
+                                                                            <th>Specialization</th>
+                                                                            <th>MD organization</th>
+                                                                            <th>Mobile</th>
+                                                                            <th>Address</th>
+                                                                            <th>Status</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>2</td>
+                                                                            <td>Dr full name</td>
+                                                                            <td>Dentist</td>
+                                                                            <td>Hospital name</td>
+                                                                            <td>01112563987</td>
+                                                                            <td>17 Hay el zhour, Elmaadi, cairo</td>
+                                                                            <td>
+                                                                                <button id="startBtn" type="button" class="btn btn-default btn-pending waves-effectwaves-light m-b-5" style="margin-left: 5px">pending</button>
+                                                                                <button type="button" id="endBtn" class="btn btn-warning waves-warning  waves-light m-b-5" data-toggle="modal" data-target="#con-close-modal" style="margin-left: 5px;  ">cancel</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                     
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="external-events" class="m-t-20">
+                                                        <br>
+                                                        <p>Drag and drop your event or click in the calendar</p>
+                                                        <div class="external-event bg-danger" data-class="bg-danger"> <i class="fa fa-move"></i>Name visit table
+                                                            <div class="card-box table-responsive">
+                                                                <table class="table table-striped table-bordered">
+                                                                    <thead>
+                                                                     <tr>
+                                                                            <th>Visit ID</th>
+                                                                            <th>Professional name</th>
+                                                                            <th>Specialization</th>
+                                                                            <th>MD organization</th>
+                                                                            <th>Mobile</th>
+                                                                            <th>Address</th>
+                                                                            <th>Status</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                         <tr>
+                                                                            <td>3</td>
+                                                                            <td>Dr full name</td>
+                                                                            <td>Dentist</td>
+                                                                            <td>Hospital name</td>
+                                                                            <td>01112563987</td>
+                                                                            <td>17 Hay el zhour, Elmaadi, cairo</td>
+                                                                            
+                                                                            <td><button id="startBtn" type="button" class="btn btn-info  waves-effectwaves-light m-b-5" style="margin-left: 5px">Un planned</button>
+                                                                           
+                                                                            </td>
+                                                                        </tr>
+                                                                        
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                     <div id="external-events" class="m-t-20">
+                                                        <br>
+                                                        <p>Drag and drop your event or click in the calendar</p>
+                                                        <div class="external-event bg-danger" data-class="bg-danger"> <i class="fa fa-move"></i>Name visit table
+                                                            <div class="card-box table-responsive">
+                                                                <table class="table table-striped table-bordered">
+                                                                    <thead>
+                                                                        <tr>
+
+                                                                            <th>Visit ID</th>
+                                                                            <th>Professional name</th>
+                                                                            <th>Specialization</th>
+                                                                            <th>MD organization</th>
+                                                                            <th>Mobile</th>
+                                                                            <th>Address</th>
+                                                                            <th>Status</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                       
+                                                                       
+                                                                         <tr>
+                                                                            <td>4</td>
+                                                                            <td>Dr full name</td>
+                                                                            <td>Dentist</td>
+                                                                            <td>Hospital name</td>
+                                                                            <td>01112563987</td>
+                                                                            <td>17 Hay el zhour, Elmaadi, cairo</td>
+                                                                           
+                                                                            <td><button id="startBtn" type="button" class="btn btn-danger  waves-effectwaves-light m-b-5" style="margin-left: 5px">Overdue</button>
+                                                                           
+                                                                            </td>
+                                                                        </tr> 
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- checkbox -->
+                                                    <div class="checkbox m-t-40">
+                                                        <input id="drop-remove" type="checkbox">
+                                                        <label for="drop-remove"> Remove after drop </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end col-->
+                                <div class="col-md-4"> </div>
+                                <!-- end col -->
+                            </div>
+                            <!-- end row -->
+                            <!-- BEGIN MODAL -->
+                            <div class="modal fade none-border" id="event-modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title"><strong>Add New Event</strong></h4> </div>
+                                        <div class="modal-body"></div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
+                                            <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal Add Category -->
+                            <div class="modal fade none-border" id="add-category">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title"><strong>Add a category </strong></h4> </div>
+                                        <div class="modal-body">
+                                            <form role="form">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">Category Name</label>
+                                                        <input class="form-control form-white" placeholder="Enter name" type="text" name="category-name" /> </div>
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">Choose Category Color</label>
+                                                        <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
+                                                            <option value="success">Success</option>
+                                                            <option value="danger">Danger</option>
+                                                            <option value="info">Info</option>
+                                                            <option value="pink">Pink</option>
+                                                            <option value="primary">Primary</option>
+                                                            <option value="warning">Warning</option>
+                                                            <option value="inverse">Inverse</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">Select visit class</label>
+                                                        <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
+                                                            <option value="success">Planned</option>
+                                                            <option value="danger">Un planned</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">Select visit month</label>
+                                                        <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
+                                                            <option value="success">Octobar</option>
+                                                            <option value="danger">Novamber</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END MODAL -->
+                        </div>
+                        <!-- end col-12 -->
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- container -->
+            </div>
+            <!-- content --
+            <footer class="footer"> 2017 © Yackeen solution. </footer>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar -->
+        <div class="side-bar right-bar">
+            <a href="javascript:void(0);" class="right-bar-toggle"> <i class="zmdi zmdi-close-circle-o"></i> </a>
+            <h4 class="">Notifications</h4>
+            <div class="notification-list nicescroll">
+                <ul class="list-group list-no-border user-list">
+                    <li class="list-group-item">
+                        <a href="#" class="user-list-item">
+                            <div class="avatar"> <img src="assets/images/users/avatar-2.jpg" alt=""> </div>
+                            <div class="user-desc"> <span class="name">Ahmed Mohamed</span> <span class="desc">There are new settings available</span> <span class="time">2 hours ago</span> </div>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" class="user-list-item">
+                            <div class="icon bg-info"> <i class="zmdi zmdi-account"></i> </div>
+                            <div class="user-desc"> <span class="name">New Professional accept</span> <span class="desc">There are new settings available</span> <span class="time">5 hours ago</span> </div>
+                        </a>
+                    </li>
+                    <li class="list-group-item active">
+                        <a href="#" class="user-list-item">
+                            <div class="avatar"> <img src="assets/images/users/avatar-3.jpg" alt=""> </div>
+                            <div class="user-desc"> <span class="name">DR/Ali</span> <span class="desc">There are new settings available</span> <span class="time">2 days ago</span> </div>
+                        </a>
+                    </li>
+                    <li class="list-group-item active">
+                        <a href="#" class="user-list-item">
+                            <div class="icon bg-warning"> <i class="zmdi zmdi-settings"></i> </div>
+                            <div class="user-desc"> <span class="name">Settings</span> <span class="desc">There are new settings available</span> <span class="time">1 day ago</span> </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /Right-bar -->
+    </div>
+    <!-- END wrapper -->
+    <div id="con-close-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Cancel visit</h4> </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <p class="text-center"> Did you want to cancel visit?</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info waves-effect waves-light">I sure</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+    <script>
+    var resizefunc = [];
+    </script>
+    <!-- jQuery  -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/detect.js"></script>
+    <script src="assets/js/fastclick.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+    <script src="assets/js/jquery.blockUI.js"></script>
+    <script src="assets/js/waves.js"></script>
+    <script src="assets/js/jquery.nicescroll.js"></script>
+    <script src="assets/js/jquery.scrollTo.min.js"></script>
+    <!-- Datatables-->
+    <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.bootstrap.js"></script>
+    <script src="assets/plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="assets/plugins/datatables/buttons.bootstrap.min.js"></script>
+    <script src="assets/plugins/datatables/jszip.min.js"></script>
+    <script src="assets/plugins/datatables/pdfmake.min.js"></script>
+    <script src="assets/plugins/datatables/vfs_fonts.js"></script>
+    <script src="assets/plugins/datatables/buttons.html5.min.js"></script>
+    <script src="assets/plugins/datatables/buttons.print.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.fixedHeader.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.keyTable.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="assets/plugins/datatables/responsive.bootstrap.min.js"></script>
+    <script src="assets/plugins/datatables/dataTables.scroller.min.js"></script>
+   
+    <!-- Datatable init js -->
+    <script src="assets/pages/datatables.init.js"></script>
+    <!-- App js -->
+    <script src="assets/js/jquery.core.js"></script>
+    <script src="assets/js/jquery.app.js"></script>
+    <!-- Jquery-Ui -->
+    <script src="assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- BEGIN PAGE SCRIPTS -->
+    <script src="assets/plugins/moment/moment.js"></script>
+    <script src='assets/plugins/fullcalendar/dist/fullcalendar.min.js'></script>
+    <script src="assets/pages/jquery.fullcalendar.js"></script>
+     <script src="assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#datatable').dataTable();
+        $('#datatable-keytable').DataTable({
+            keys: true
+        });
+        $('#datatable-responsive').DataTable();
+        $('#datatable-scroller').DataTable({
+            ajax: "assets/plugins/datatables/json/scroller-demo.json",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: true,
+            scroller: true
+        });
+        var table = $('#datatable-fixed-header').DataTable({
+            fixedHeader: true
+        });
+        // $("#startBtn").click(function(){
+        //     $("#endBtn").css("display", "block");
+        // });
+        $("p.click_btn").on("click", function() {
+            $(".quick_booking").toggleClass("open");
+        });
+
+
+            // Date Picker
+            jQuery('#datepicker').datepicker();
+            jQuery('#datepicker-autoclose').datepicker({
+                autoclose: true,
+                todayHighlight: true
+            });
+            jQuery('#datepicker-inline').datepicker();
+            jQuery('#datepicker-multiple-date').datepicker({
+                format: "mm/dd/yyyy",
+                clearBtn: true,
+                multidate: true,
+                multidateSeparator: ","
+            });
+            jQuery('#date-range').datepicker({
+                toggleActive: true
+            });
+    });
+    TableManageButtons.init();
+    </script>
+</body>
+
+</html>

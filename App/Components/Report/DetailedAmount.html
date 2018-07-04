@@ -1,0 +1,76 @@
+<div class="container">
+	<div class="row">
+		<form ng-submit="Getdate()">
+		<div class="col-md-11	">
+		
+			<input  class="pull-right" id="mapDate" ng-model="mapDate" placeholder="Choose Month"  style="border-radius: 5px ; color: black" required  >
+			
+		</div>
+							<button type="submit" class="btn btn-warning" style="border-radius: 5px" >Show</button>
+			</form>
+		
+		<div class="col-lg-12">
+			
+			
+			<div class="card-box">
+				
+				<h4 class="header-title m-t-0 m-b-30">Detailed Amount Details</h4>
+				
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th class="text-center">
+									Sales Rep.
+									<a class="pull-right" ng-click="DetailedAmountOrder='SalesRepNamer'; DetailedAmountRev = !DetailedAmountRev">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>	
+								<th class="text-center">
+									DoctorName
+									<a class="pull-right" ng-click="DetailedAmountOrder='DoctorName'; DetailedAmountRev = !DetailedAmountRev">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+								<th class="text-center">
+									Speciality
+									<a class="pull-right" ng-click="DetailedAmountOrder='Speciality'; DetailedAmountRev = !DetailedAmountRev">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+								<th class="text-center">
+									Class
+									<a class="pull-right" ng-click="DetailedAmountOrder='Class'; DetailedAmountRev = !DetailedAmountRev">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+								<th class="text-center">
+									MonthlyRevenue
+									<a class="pull-right" ng-click="DetailedAmountOrder='MonthlyRevenue'; DetailedAmountRev = !DetailedAmountRev">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+							</tr>
+						</thead>	
+						<tbody class="text-center">
+							<tr ng-repeat="x in DetailedAmount | orderBy : DetailedAmountOrder : DetailedAmountRev">
+								<td>{{x.SalesRepName}}</td>
+								<td>{{x.DoctorName}}</td>
+								<td>{{x.Speciality}}</td>
+								<td>{{x.Class}}</td>
+								<td>{{x.MonthlyRevenue}}</td>
+
+							</tr>
+						</tbody>
+					</table>
+					<h4 ng-show="DetailedAmount.length===0" style="color: red">No Details For Provided Month</h4>
+							<img id="loadingDet" src="/AlMokhtabarSales/Assets/Images/Spinner-1s-200px.gif" style="width: 150px ; height: 150px ; margin-left: 40%" >
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>    <script src="assets/js/jquery.app.js"></script>
+<script src="assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+

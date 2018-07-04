@@ -1,0 +1,347 @@
+﻿<div class="container">
+
+	<div class="row">
+		<div class="col-lg-4 col-md-6">
+			<div class="card-box">
+				
+				<h4 class="header-title m-t-0 m-b-30">Average of visits Time</h4>
+				<div class="widget-chart-1">
+					<div class="widget-chart-box-1">
+						<div style="position: relative;">
+							<canvas class="canvas" id="avtText" style="z-index: 1; position: absolute; left: 0px; top: 0px; width: 100px; height: 100px;"></canvas>
+							<canvas class="canvas" id="avtCanvas" style="z-index: 2; position: absolute; left: 0px; top: 0px; width: 100px; height: 100px;"></canvas>
+						</div>
+						<!--<div class="progChart -type-donut -label-centered">
+                            <canvas class="canvas" id="avtPie" class="donutCanvas" width="160" height="80"></canvas>
+                            <div class="progChart__summary avt">
+                                <p class="progChart__summary__number">{{AVT}}</p>
+                            </div>
+                        </div>-->
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{AVT}}" aria-valuemin="0" aria-valuemax="100" style="width:{{AVT}}%">
+                                &nbsp;&nbsp;{{AVT}} &#37;
+                            </div>
+                        </div>
+					</div>
+					<div class="widget-detail-1">
+						<h2 class="p-t-10 m-b-0"> {{targetAVT}} </h2>
+						<p class="text-muted">Total time</p>
+						<p class="text-muted" style="margin: 0px;"><a ui-sref="AVTReport" style="cursor: pointer" ng-if="role!='SalesRep'">Details</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end col -->
+		<div class="col-lg-4 col-md-6">
+			<div class="card-box">
+				
+				<h4 class="header-title m-t-0 m-b-30">Target &amp; Achieved</h4>
+				<div class="widget-box-2">
+					<div class="widget-detail-2">
+						<span class="badge badge-success pull-left m-t-20">{{Achieved}}% Achieved <i class="zmdi zmdi-trending-up"></i> </span>
+						<h2 class="m-b-0"> {{targetVisit}} </h2>
+						<p class="text-muted m-b-25">Total visits target</p>
+					</div>
+					<div class="progress progress-bar-success-alt progress-sm m-b-0">
+						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{achievedPercent}}" aria-valuemin="0" aria-valuemax="100" ng-style="myStyle">
+							<pre>myStyle={{achievedPercent}}</pre>
+							<span class="sr-only">{{achievedPercent}}% Complete</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end col -->		
+		<div class="col-lg-4 col-md-6">
+			<div class="card-box">
+				
+				<h4 class="header-title m-t-0 m-eb-30">Amount    <b style="font-size: 10px ; margin-left: 58%">  Target Amount  {{targetamount}}</b></h4>
+
+				<div class="widget-chart-1">
+					<div class="widget-detail-1">
+												<h2 class="m-b-0"> {{actualamount}} </h2>
+						<p class="text-muted m-b-25">Actual Amount</p>
+
+						<p class="text-muted" style="margin: 0px;"><a ui-sref="DetailedAmount" style="cursor: pointer">Details</a></p>
+
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-4 col-md-6" ng-show="role ==='SalesRep'">
+			<div class="card-box">
+				
+				<h4 class="header-title m-t-0 m-eb-30">Missed visits</h4>
+				<div class="widget-chart-1">
+					<div class="widget-chart-box-1">
+						<div style="position: relative;">
+							<canvas class="canvas" id="missedText" style="z-index: 1; position: absolute; left: 0px; top: 0px; width: 100px; height: 100px;"></canvas>
+							<canvas class="canvas" id="missedCanvas" style="z-index: 2; position: absolute; left: 0px; top: 0px; width: 100px; height: 100px;"></canvas>
+						</div>
+						<!--<div class="progChart -type-donut -label-centered">
+                            <canvas class="canvas" id="missedPie" class="donutCanvas" width="160" height="80"></canvas>
+                            <div class="progChart__summary missed">
+                                <p class="progChart__summary__number">{{missedVisits}}</p>
+                            </div>
+                        </div>-->
+					</div>
+					<div class="widget-detail-1">
+						<h2 class="p-t-10 m-b-0"> {{targetVisit}} </h2>
+						<p class="text-muted">Total visits</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-4 col-md-6" ng-show="role !== 'SalesRep'">
+			<div class="card-box">
+				
+				<h4 class="header-title m-t-0 m-b-30">Stock Report</h4>
+				<div class="widget-chart-1">
+					<div class="widget-chart-box-1">
+						
+					</div>
+					<div class="widget-detail-1">
+						<h2 class="p-t-10 m-b-0">
+							{{stock}}
+						</h2>
+						<p class="text-muted">Total stock</p>
+						<p class="text-muted" style="margin: 0px;"><a style="cursor: pointer" ui-sref="StockReport">Details</a></p>
+					</div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow=" {{achievedPercent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{achievedPercent}}%">
+                            {{achievedPercent}} &#37
+                        </div>
+                    </div>
+				</div>
+				<!--<div class="widget-chart-1">
+                    <div class="widget-chart-box-1">
+                        <input data-plugin="knob" data-width="80" data-height="80" data-fgColor="ffbd4a"
+                               data-bgColor="FFE6BA" value="80"
+                               data-skin="tron" data-angleOffset="180" data-readOnly=true
+                               data-thickness=".15"/>
+                    </div>
+                    <div class="widget-detail-1">
+                        <h2 class="p-t-10 m-b-0"> 20 </h2>
+                        <p class="text-muted">Total stocks</p>
+                        <a href="" type="button" class="">View</a>
+                    </div>
+                </div>-->
+			</div>
+		</div>
+		<!-- end col -->
+ 
+	</div>
+	<!-- end row -->
+	<div class="row" ng-show="role === 'SalesRep'" >
+		<div class="col-lg-12">
+			<div class="card-box">
+				<h4 class="header-title m-t-0 m-b-30">Missed visits</h4>
+				<div class="row">
+					<div class="col-sm-3"></div>
+					<div class="col-sm-3"></div>
+					<div class="col-sm-3">
+
+					</div>
+					<div class="col-sm-3">
+						<div class="dataTables_filter">
+							<input ng-model="searchTerm" type="search" class="form-control input-sm" placeholder="Search.." style="margin-bottom: 10px; width: auto;">
+						</div>
+					</div>
+
+				</div>
+
+
+				<div class="table-responsive" style="overflow: scroll">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>
+									Doctor
+									<a class="pull-right" ng-click="visitOrderField='Name'; visitReverse = !visitReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+								<th>
+									Organization
+									<a class="pull-right" ng-click="visitOrderField='Name'; visitReverse = !visitReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+								<th>
+									Visit Date
+									<a class="pull-right" ng-click="visitOrderField='Name'; visitReverse = !visitReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="visit in missed | orderBy: visitOrderField :  visitReverse | filter: searchTerm track by $index">
+								<td class="midd-td">{{visit.DoctorName}}</td>
+								<td class="midd-td">{{visit.OrgName}}</td>
+								<td class="midd-td">{{visit.VisitDate | date:'dd-MM-yyyy'}}</td>
+								<td class="midd-td">
+									<a ng-click="showCancel(visit.VisitID)" class="btn btn-sm btn-danger waves-effect waves-light ">
+										<!--ng-click="deleteVisit(visit.VisitID)"-->
+										<i class="glyphicon glyphicon-trash" data-toggle="modal" data-target="con-close-modal"></i>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- end col -->
+	</div>
+	<div class="row" ng-show="role !== 'SalesRep'">
+		<div class="col-lg-12">
+			<div class="card-box">
+				<h4 class="header-title m-t-0 m-b-30">Customer Report </h4>
+				<div class="row" style="margin-bottom: 10px;">
+					<div class="col-sm-3">
+						<div class="dataTables_filter">
+							<label class="input-sm pull-left">From Date:</label>
+							<input  ng-model="fromDate" type="date" class="form-control input-sm" style="margin-bottom: 10px; width: auto;">
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="dataTables_filter">
+							<label class="input-sm pull-left">To date:</label>
+							<input  ng-model="toDate" type="date" class="form-control input-sm" style="margin-bottom: 10px; width: auto;">
+						</div>
+					</div>
+					
+					<div class="col-sm-1">
+						<button class="btn btn-primary" type="button" ng-click="updateDates()" >View Customer Report</button>
+					</div>
+
+					<div class=" col-sm-offset-1 col-sm-4">
+						<div class="dataTables_filter">
+							<input ng-model="searchReportTerm" type="search" class="form-control input-sm" placeholder="Search.." style="margin-bottom: 10px; width: auto;">
+						</div>
+					</div>
+
+				</div>
+				<div class="table-responsive" style="overflow: scroll">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>
+									Doctor
+									<a class="pull-right" ng-click="reportOrderField='DoctorName'; reportReverse = !reportReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+								<th>
+									Visit Date
+									<a class="pull-right" ng-click="reportOrderField='VisitDate'; reportReverse = !reportReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+								<th>
+									Visit Feedback
+									<a class="pull-right" ng-click="reportOrderField='VisitFeedback'; reportReverse = !reportReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+								<th>
+									Visit Comment
+									<a class="pull-right" ng-click="reportOrderField='VisitComment'; reportReverse = !reportReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+								<th>
+                                    Test Name
+                                    <a class="pull-right"
+                                       ng-click="reportOrderField='TestName'; reportReverse = !reportReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th>
+                                    Test Feedback
+                                    <a class="pull-right"
+                                       ng-click="reportOrderField='TestFeedback'; reportReverse = !reportReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th>
+                                    Test Comment
+                                    <a class="pull-right"
+                                       ng-click="reportOrderField='TestComment'; reportReverse = !reportReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in report | orderBy: reportOrderField : reortReverse | filter: searchReportTerm track by $index">
+								<td>{{item.DoctorName}}</td>
+								<td>{{item.VisitDate | date:'dd-MM-yyyy'}}</td>
+								<td>
+									<label ng-class="{'badge badge-success': item.VisitFeedback === 'Postive',
+                                            'badge badge-danger': item.VisitFeedback === 'Negative',
+                                            'badge badge-warning': item.VisitFeedback === 'Neutral'}">
+                                        {{item.VisitFeedback}}
+                                    </label>
+								</td>
+								<td>{{item.VisitComment}}</td>
+								<td>{{item.TestName}}</td>
+                                <td>{{item.TestFeedback}}</td>
+                                <td>{{item.TestComment}}</td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+				 </div>
+			<!-- end col -->
+		</div>
+
+	</div>
+    <script src="assets/js/jquery.app.js"></script>
+
+	<div id="myModal" class="modal" role="dialog" style="overflow-y: scroll;">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header" style="padding-bottom: 0px;">
+					<h3 class="header-title m-t-0 m-b-30">Cancel a missed visit</h3>
+				</div>
+				<div class="modal-body" style="padding: 40px 0;">
+					<div class="form-group">
+						<label class="col-md-4 control-label" style="top: 5px;">Cancellation Reason:</label>
+						<div class="col-md-8">
+							<select ng-model="reason" ng-options="reason.ID as reason.Name for reason in reasons" class="form-control" required></select>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="dropdown pull-right">
+						<button ng-disabled="!reason" type="submit" ng-click="deleteVisit()" class="btn btn-success waves-effect w-md m-b-5">Cancel visit</button>
+						<button data-dismiss="modal" type="button" class="btn btn-danger waves-effect w-md m-b-5">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="okModal" class="modal" role="dialog" style="overflow-y: scroll;">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body" style="padding: 40px 0;">
+					<p>Visit has been cancelled.</p>
+				</div>
+				<div class="modal-footer">
+					<div class="dropdown pull-right">
+						<button data-dismiss="modal" type="button" class="btn btn-danger waves-effect w-md m-b-5">Ok</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

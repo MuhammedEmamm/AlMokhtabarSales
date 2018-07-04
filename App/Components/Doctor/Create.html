@@ -1,0 +1,137 @@
+﻿<link href="Assets/CSS/multiselectStyle.css" rel="stylesheet" />
+
+<div class="container">
+	<div class="row" >
+		<div class="col-sm-12">
+			<div class="card-box">
+				<!--<div class="dropdown pull-right">
+                    <a href="" class="btn btn-default waves-effect w-md m-b-5"> Add</a>
+                </div>-->
+				<h4 class="header-title m-t-0 m-b-30">Add doctor details</h4>
+				<div class="row">
+					<div class="col-lg-6 col-md-offset-3" >
+						<form class="form-horizontal" role="form" name="drForm" method="post" ng-submit="submitDr()" novalidate >
+							<div class="form-group" ng-class="{ 'has-error' : drForm.name.$invalid && !drForm.name.$pristine }">
+								<label class="col-md-4 control-label">Doctor Name</label>
+								<div class="col-md-8">
+									<input id="name" name="name" ng-model="doctor.name" type="text" class="form-control" required>
+								</div>
+								<p ng-show="drForm.name.$invalid && !drForm.name.$pristine" class="help-block">Doctor Name is required.</p>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-4 control-label">Doctor Mobile no.</label>
+								<div class="col-md-8">
+									<input id="mob" name="mob" ng-model="doctor.mob" type="text" class="form-control">
+								</div>
+							</div>
+
+							<div class="form-group" ng-class="{ 'has-error' : drForm.spec.$invalid && !drForm.spec.$pristine }">
+								<label class="col-md-4 control-label">Doctor Speciality</label>
+								<div class="col-md-8">
+									<select id="spec" name="spec" ng-model="doctor.spec" ng-options="spec.SpecialityID as spec.SpecialityName for spec in specs" class="form-control" required></select>
+								</div>
+								<p ng-show="drForm.spec.$invalid && !drForm.spec.$pristine" class="help-block">Doctor Speciality is required.</p>
+							</div>
+
+							<div class="form-group" ng-class="{ 'has-error' : drForm.category.$invalid && !drForm.category.$pristine }">
+								<label class="col-md-4 control-label">Doctor Category</label>
+								<div class="col-md-8">
+									<select id="category" name="category" ng-model="doctor.category" ng-options="category.ID as category.Name for category in categories" class="form-control" required></select>
+								</div>
+								<p ng-show="drForm.category.$invalid && !drForm.category.$pristine" class="help-block">Doctor Category is required.</p>
+							</div>
+
+							<div class="form-group" ng-class="{ 'has-error' : selectedOrgs.length < 1 && trig }">
+								<label class="col-md-4 control-label">Organization Name</label>
+								<div class="col-md-6">
+									<div class="dropdown-button noselect" ng-click="showList = !showList">
+										<div class="dropdown-quantity">
+											<span class="quantity">{{selectedOrgs.length}} </span>
+										</div>
+										<div class="dropdown-label"> selected</div>
+										<i class="glyphicon glyphicon-chevron-down pull-right"></i>
+									</div>
+									<div class="dropdown-list" ng-show="showList">
+										<input ng-model="orgSearchTerm" type="search" placeholder="Search" class="dropdown-search form-control">
+										<ul style="list-style: none; padding-left: 10px;">
+											<li ng-repeat="org in orgs | limitTo:totalDisplayed | filter: orgSearchTerm track by $index">
+												<input name="orgCheck" type="checkbox" ng-model="org.select" ng-change="updateOrgs(org)">
+												<label for="orgCheck">{{org.Name}}</label>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="col-md-2 text-center"  style="cursor: pointer;">
+										<a  data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> new</a>
+										<br>
+										<a style="color: yellowgreen" ng-click="loadMore()" ng-if="show"><i class="fa fa-plus" ></i> LoadMore</a>
+								</div>
+								<p ng-show="selectedOrgs.length < 1" class="help-block pull-right">Please select at least one organization.</p>
+
+							</div>
+							<div class="dropdown pull-right">
+								<button ng-disabled="drForm.$invalid || selectedOrgs.length < 1" type="submit" class="btn btn-success waves-effect w-md m-b-5">Add</button>
+							</div>
+						</form>
+					</div>
+					<!-- end col -->
+
+				</div>
+				<!-- end row -->
+			</div>
+		</div>
+		<!-- end col -->
+	</div>
+	<!-- end row -->
+
+	<div id="myModal" class="modal" role="dialog" style="overflow-y: scroll;">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header" style="padding-bottom: 0px;">
+					<h3 class="header-title m-t-0 m-b-30">Add New Organization</h3>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form" name="orgForm" method="post" ng-submit="submitOrg()" novalidate>
+
+						<div class="form-group" ng-class="{ 'has-error' : orgForm.orgName.$invalid && !orgForm.orgName.$pristine }">
+							<label class="col-md-4 control-label">Organization Name</label>
+							<div class="col-md-8">
+								<input id="orgName" name="orgName" ng-model="newOrg.name" type="text" class="form-control" required>
+							</div>
+							<p ng-show="orgForm.orgName.$invalid && !orgForm.orgName.$pristine" class="help-block">Organization name is required.</p>
+						</div>
+
+						<div class="form-group" ng-class="{ 'has-error' : orgForm.address.$invalid && !orgForm.address.$pristine }">
+							<label class="col-md-4 control-label">Organization Address</label>
+							<div class="col-md-8">
+								<input id="address" name="address" ng-model="newOrg.address" type="text" class="form-control" required>
+							</div>
+							<p ng-show="orgForm.address.$invalid && !orgForm.address.$pristine" class="help-block">Organization address is required.</p>
+						</div>
+
+						<div class="form-group" ng-class="{ 'has-error' : orgForm.contact.$invalid && !orgForm.contact.$pristine }">
+							<label class="col-md-4 control-label">Organization Contact</label>
+							<div class="col-md-8">
+								<input id="contact" name="contact" ng-model="newOrg.contact" type="text" class="form-control" required>
+							</div>
+							<p ng-show="orgForm.contact.$invalid && !orgForm.contact.$pristine" class="help-block">Organization contact is required.</p>
+						</div>
+
+
+						<div class="dropdown pull-right">
+							<button ng-disabled="orgForm.$invalid" type="submit" class="btn btn-success waves-effect w-md m-b-5">Add</button>
+							<button data-dismiss="modal" type="button" class="btn btn-danger waves-effect w-md m-b-5">Close</button>
+						</div>
+					</form>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+

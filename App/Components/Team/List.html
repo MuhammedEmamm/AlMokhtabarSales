@@ -1,0 +1,404 @@
+﻿<div class="container">
+    <div class="row" ng-show="role === 'SalesAdmin'">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive" style="overflow: scroll">
+                <div class="row">
+                    <h4 class="col-sm-11 header-title m-t-0 m-b-30">Sales Managers</h4>
+                    <span ng-show="!showManagers" class="col-sm-1 glyphicon glyphicon-chevron-down pull-right" ng-click="showManagers = true"></span>
+                    <span ng-show="showManagers" class="col-sm-1 glyphicon glyphicon-chevron-up pull-right" ng-click="showManagers = false"></span>
+                </div>
+                <div ng-show="showManagers">
+                    <div class="row">
+                        <div class="col-sm-3">
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                        <div class="col-sm-3">
+                            <!--<select ng-if="role === 'SalesAdmin'"
+                                    ng-model="filterManager"
+                                    ng-options="manager.ID as manager.Name for manager in managers"
+                                    class="form-control  input-sm"></select>-->
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="dataTables_filter">
+                                <input ng-model="searchManagerTerm" type="search" class="form-control input-sm" placeholder="Search.." style="margin-bottom: 10px;width: auto;">
+                            </div>
+                        </div>
+                    </div>
+                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Sales Manager
+                                    <a class="pull-right" ng-click="managerOrderField='ManagerName'; managerReverse = !managerReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th>
+                                    Mobile
+                                    <a class="pull-right" ng-click="managerOrderField='Mobile'; managerReverse = !managerReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+								<th>
+                                    VisitPlan Status
+                                    <a class="pull-right" ng-click="managerOrderField='PlanStatus'; managerReverse = !managerReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th>
+                                    Activity Date
+                                    <a class="pull-right" ng-click="managerOrderField='ActiveDate'; managerReverse = !managerReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th>
+                                    Activate/Deactivate
+                                    <a class="pull-right" ng-click="managerOrderField='Status'; managerReverse = !managerReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="manager in managers | filter: searchManagerTerm | orderBy: managerOrderField :  managerReverse">
+                                <td class="midd-td"><a>{{manager.ManagerName}}</a></td>
+                                <td class="midd-td">{{manager.Mobile}}</td>
+								                                <td class="midd-td" ng-if="member.PlanStatus===0">No Plan For Current Month</td>
+
+								<td class="midd-td" ng-if="member.PlanStatus===1">Created</td>
+								<td class="midd-td" ng-if="member.PlanStatus===2">Submitted</td>
+								<td class="midd-td" ng-if="member.PlanStatus===3">Approved</td>
+								
+                                <td class="midd-td">{{manager.ActiveDate | date:'dd-MM-yyyy'}}</td>
+                                <td class="midd-td">
+                                    <label class="switch">
+                                        <!--<input type="checkbox" ng-model="manager.active" ng-change="updateManagerActivity(manager)">
+                                        <span class="slider round"></span>-->
+                                        <input class="tgl tgl-ios" id="cbManager + {{manager.ManagerID}}" type="checkbox" ng-model="manager.active" ng-change="updateManagerActivity(manager)"/>
+                                        <label class="tgl-btn" for="cbManager+ {{manager.ManagerID}}"></label>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+									<img id="loading" src="/AlMokhtabarSales/Assets/Images/Spinner-1s-200px.gif" style="width: 150px ; height: 150px ; margin-left: 40%" >
+
+                </div>
+            </div>
+        </div>
+		 <div class="col-sm-12">
+            <div class="card-box table-responsive" style="overflow: scroll">
+                <div class="row">
+                    <h4 class="col-sm-11 header-title m-t-0 m-b-30">Sales Reps.</h4>
+                    <span ng-show="!showReps" class="col-sm-1 glyphicon glyphicon-chevron-down pull-right" ng-click="showReps = true"></span>
+                    <span ng-show="showReps" class="col-sm-1 glyphicon glyphicon-chevron-up pull-right" ng-click="showReps = false"></span>
+                </div>
+                <div ng-show="showReps">
+                    <div class="row">
+                        <div class="col-sm-3">
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                        <div class="col-sm-3">
+                            <!--<select ng-if="role === 'SalesAdmin'"
+                                        ng-model="filterManager"
+                                        ng-options="manager.ID as manager.Name for manager in managers"
+                                        class="form-control  input-sm"></select>-->
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="dataTables_filter">
+                                <input ng-model="searchRepTerm" type="search" class="form-control input-sm" placeholder="Search.." style="margin-bottom: 10px; width: auto;">
+                            </div>
+                        </div>
+                    </div>
+                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Sales Rep.
+                                    <a class="pull-right" ng-click="repOrderField='SalesRepName'; repReverse = !repReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th ng-if="role === 'SalesAdmin'">
+                                    Sales Manager
+                                    <a class="pull-right" ng-click="repOrderField='ManagerName'; repReverse = !repReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th>
+                                    Mobile
+                                    <a class="pull-right" ng-click="repOrderField='Mobile'; repReverse = !repReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th>
+                                    Activity Date
+                                    <a class="pull-right" ng-click="repOrderField='ActiveDate'; repReverse = !repReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th>
+                                    Activate/Deactivate
+                                    <a class="pull-right" ng-click="repOrderField='Status'; repReverse = !repReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="member in team | filter: searchRepTerm | filter: {ManagerName: filterManager.Name}: true | orderBy: repOrderField :  repReverse">
+                                <td class="midd-td"><a>{{member.SalesRepName}}</a></td>
+                                <td ng-if="role === 'SalesAdmin'" class="midd-td">{{member.ManagerName}}</td>
+                                <td class="midd-td">{{member.Mobile}}</td>
+                                <td class="midd-td">{{member.ActiveDate | date:'dd-MM-yyyy'}}</td>
+                                <td class="midd-td">
+                                    <label class="switch">
+                                        <!--<input type="checkbox" ng-model="member.active" ng-change="updateRepActivity(member)">
+                                        <span class="slider round"></span>-->
+                                        <input class="tgl tgl-ios" id="cbRep + {{member.SalesRepID}}" type="checkbox" ng-model="member.active" ng-change="updateRepActivity(member)"/>
+                                        <label class="tgl-btn" for="cbRep + {{member.SalesRepID}}"></label>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+				<img id="loading1" src="/AlMokhtabarSales/Assets/Images/Spinner-1s-200px.gif" style="width: 150px ; height: 150px ; margin-left: 40% ;" >
+
+                </div>
+				
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="role === 'SalesManager'">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive" style="overflow: scroll">
+                <div class="row">
+                    <h4 class="col-sm-11 header-title m-t-0 m-b-30">Sales Reps.</h4>
+                    <span ng-show="!showReps" class="col-sm-1 glyphicon glyphicon-chevron-down pull-right" ng-click="showReps = true"></span>
+                    <span ng-show="showReps" class="col-sm-1 glyphicon glyphicon-chevron-up pull-right" ng-click="showReps = false"></span>
+                </div>
+                <div ng-show="showReps">
+                    <div class="row">
+                        <div class="col-sm-3">
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                        <div class="col-sm-3">
+                            <!--<select ng-if="role === 'SalesAdmin'"
+                                        ng-model="filterManager"
+                                        ng-options="manager.ID as manager.Name for manager in managers"
+                                        class="form-control  input-sm"></select>-->
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="dataTables_filter">
+                                <input ng-model="searchRepTerm" type="search" class="form-control input-sm" placeholder="Search.." style="margin-bottom: 10px; width: auto;">
+                            </div>
+                        </div>
+                    </div>
+                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Sales Rep.
+                                    <a class="pull-right" ng-click="repOrderField='SalesRepName'; repReverse = !repReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th ng-if="role === 'SalesAdmin'">
+                                    Sales Manager
+                                    <a class="pull-right" ng-click="repOrderField='ManagerName'; repReverse = !repReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th>
+                                    Mobile
+                                    <a class="pull-right" ng-click="repOrderField='Mobile'; repReverse = !repReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+								<th>
+                                   VisitPlan Status
+                                    <a class="pull-right" ng-click="repOrderField='Mobile'; repReverse = !repReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+								
+                                <th>
+                                    Activity Date
+                                    <a class="pull-right" ng-click="repOrderField='ActiveDate'; repReverse = !repReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th>
+                                    Activate/Deactivate
+                                    <a class="pull-right" ng-click="repOrderField='Status'; repReverse = !repReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="member in team | filter: searchRepTerm | filter: {ManagerName: filterManager.Name}: true | orderBy: repOrderField :  repReverse">
+                                <td class="midd-td"><a>{{member.SalesRepName}}</a></td>
+                                <td ng-if="role === 'SalesAdmin'" class="midd-td">{{member.ManagerName}}</td>
+                                <td class="midd-td">{{member.Mobile}}</td>
+                                <td class="midd-td" ng-if="member.PlanStatus===0">No Plan For Current Month</td>
+								<td class="midd-td" ng-if="member.PlanStatus===1">Created</td>
+								
+								<td class="midd-td" ng-if="member.PlanStatus===2">Submitted</td>
+								<td class="midd-td" ng-if="member.PlanStatus===3">Approved</td>
+								
+								
+                                <td class="midd-td">{{member.ActiveDate | date:'dd-MM-yyyy'}}</td>
+                                <td class="midd-td">
+                                    <label class="switch">
+                                        <!--<input type="checkbox" ng-model="member.active" ng-change="updateRepActivity(member)">
+                                        <span class="slider round"></span>-->
+                                        <input class="tgl tgl-ios" id="cbRep + {{member.SalesRepID}}" type="checkbox" ng-model="member.active" ng-change="updateRepActivity(member)"/>
+                                        <label class="tgl-btn" for="cbRep + {{member.SalesRepID}}"></label>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+				<img id="loading2" src="/AlMokhtabarSales/Assets/Images/Spinner-1s-200px.gif" style="width: 150px ; height: 150px ; margin-left: 40%" >
+
+                </div>
+				
+            </div>
+        </div>
+    </div>
+	<div class="row" ng-show="role === 'SalesManager'"> 
+		<div>
+			<form ng-submit="getmap()">
+			
+			<label style="color: black">Enter Date :</label>
+			<input  id="mapDate" ng-model="mapDate" placeholder="mm/dd/yyyy" required>
+			<br>
+			<label style="color: black">Choose SalesRep : </label>
+			<select ng-model="SalesRepID" ng-init="SalesRepID = 0 " style="border-radius: 2px">
+				<option ng-selected disabled  ng-value="0" > Choose SalesRep  </option>
+				<option ng-repeat="x in team" ng-value="x.SalesRepID" style="color: black">{{x.SalesRepName}}</option>
+			</select>
+							<br>
+
+						<button class="btn btn-warning" type="submit">Submit</button>
+
+			</form>
+						<h4 ng-if="allmarkers.length==0" style="color: red"><b>No Visits for this Date.</b></h4>
+
+
+		</div>
+		<br>
+		<div class="col-sm-12">
+			<google-map
+		center="centerProperty"
+		zoom="zoomProperty" 
+		markers="markersProperty"
+		latitude="clickedLatitudeProperty"
+		longitude="clickedLongitudeProperty"
+		mark-click="true"
+		draggable="true"
+		style="height: 450px; width: 100%">
+	</google-map>
+
+	</div>
+	</div>
+	<div class="row" ng-show="role === 'SalesAdmin'"> 
+		<div>
+			<form ng-submit="getmap1()">
+			
+			<label style="color: black">Enter Date :</label>
+			<input id="mapDate1" ng-model="mapDate1" placeholder="mm/dd/yyyy" required>
+			<br>
+				<h6><b>You can filter Sales Reps by managers.</b></h6>
+			<label style="color: black">Choose Manager : </label>
+			<select ng-model="ManagerID" ng-init="ManagerID = 0 " style="border-radius: 2px" ng-change="getSalesReps(ManagerID)">
+				<option ng-selected disabled  ng-value="0" > Choose Manager  </option>				
+				<option ng-repeat="x in managerList" ng-value="x.ID" style="color: black">{{x.Name}}</option>
+			</select>
+			<br>	
+			<label style="color: black">Choose SalesRep : </label>
+			<select ng-model="SalesRepID" ng-init="SalesRepID = 0 " style="border-radius: 2px">
+				<option ng-selected disabled  ng-value="0" > Choose SalesRep  </option>
+				<option ng-repeat="x in team" ng-value="x.SalesRepID" style="color: black">{{x.SalesRepName}}</option>
+			</select>
+							<br>
+
+						<button class="btn btn-warning" type="submit">Submit</button>
+
+			</form>
+			<h4 ng-if="allmarkers.length==0" style="color: red"><b>No Visits for this Date.</b></h4>
+
+		</div>
+		<br>
+		<div class="col-sm-12">
+			<google-map
+		center="centerProperty"
+		zoom="zoomProperty" 
+		markers="markersProperty"
+		latitude="clickedLatitudeProperty"
+		longitude="clickedLongitudeProperty"
+		mark-click="true"
+		draggable="true"
+		style="height: 450px; width: 100%">
+	</google-map>
+
+	</div>
+	</div>
+</div>
+    <script src="assets/js/jquery.app.js"></script>
+	<script src="assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+	<script src="assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<div id="myModal" class="modal" role="dialog" style="overflow-y: scroll;">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 0px;">
+                <h3 class="header-title m-t-0 m-b-30">Deactivate Manager</h3>
+            </div>
+            <div class="modal-body" style="padding: 40px 0;">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Alteranative manager:</label>
+                    <div class="col-md-8">
+                        <select ng-model="altManager" type="text" class="form-control input-sm"
+                                ng-options="manager.ID as manager.Name for manager in managerList"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="dropdown pull-right">
+                    <button data-dismiss="modal" type="button" class="btn btn-success waves-effect w-md m-b-5">Close</button>
+                    <button ng-disabled="!altManager" ng-click="update(altManager)" type="submit" class="btn btn-danger waves-effect w-md m-b-5">Deactivate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="okModal" class="modal" role="dialog" style="overflow-y: scroll;">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 0px;">
+                <h3 class="header-title m-t-0 m-b-30">Deactivate Manager</h3>
+            </div>
+            <div class="modal-body">
+                <p>Manager has been deactivated.</p>
+            </div>
+            <div class="modal-footer">
+                <div class="dropdown pull-right">
+                    <button data-dismiss="modal" type="button" class="btn btn-success waves-effect w-md m-b-5">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+	<style>
+	.angular-google-map {
+			display: block;
+		}
+	</style>

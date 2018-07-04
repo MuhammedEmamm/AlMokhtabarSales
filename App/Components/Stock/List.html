@@ -1,0 +1,162 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-box">
+                <div class="pull-right" ng-show="role !== 'SalesRep'">
+                    <a class="btn btn-default waves-effect w-md waves-light m-b-5" data-toggle="modal" data-target="#myModal">
+                        <i class="glyphicon glyphicon-tags"> </i>
+                        Assign Stock
+                    </a>
+                </div>
+                <h4 class="header-title m-t-0 m-b-30">My Stock</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="dataTables_filter">
+                            <input ng-model="searchTerm" type="search" class="form-control input-sm"
+                                   placeholder="Search.." style="margin-bottom: 10px; width: auto;">
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    Item
+                                    <a class="pull-right" ng-click="stockOrderField='ItemName'; stockReverse = !stockReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th ng-if="role === 'SalesManager'" class="text-center">
+                                    Sales Rep.
+                                    <a class="pull-right" ng-click="stockOrderField='DirectManager'; stockReverse = !stockReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th ng-if="role === 'SalesAdmin'" class="text-center">
+                                    Manager.
+                                    <a class="pull-right" ng-click="stockOrderField='SalesRepName'; stockReverse = !stockReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th class="text-center">
+                                    Start Balance
+                                    <a class="pull-right" ng-click="stockOrderField='StartBalance'; stockReverse = !stockReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                                <th class="text-center">
+                                    Current Balance
+                                    <a class="pull-right" ng-click="stockOrderField='CurrentBalance'; stockReverse = !stockReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            <tr ng-repeat="item in stockList | orderBy: stockOrderField :  stockReverse | filter: searchTerm track by $index">
+                                <td>{{item.ItemName}}</td>
+                                <td ng-if="role === 'SalesManager'">{{item.DirectManager}}</td>
+                                <td ng-if="role === 'SalesAdmin'">{{item.SalesRepName}}</td>
+                                <td>{{item.StartBalance}}</td>
+                                <td>{{item.CurrentBalance}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal" role="dialog" style="overflow-y: scroll;">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom: 0px;">
+                <h3 class="header-title m-t-0 m-b-30">Assign Stock</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" name="stockForm" method="post" ng-submit="submitStock()" novalidate>
+
+                    <div ng-if="role === 'SalesManager'" class="form-group" ng-class="{ 'has-error' : stockForm.toRep.$invalid && !stockForm.toRep.$pristine }">
+                        <label class="col-md-4 control-label">Sales Rep:</label>
+                        <div class="col-md-8">
+                            <select id="toRep" name="toRep"
+                                    ng-model="stock.ToUserID"
+                                    ng-options="rep.SalesRepID as rep.SalesRepName for rep in reps"
+                                    class="form-control"
+                                    required></select>
+                        </div>
+                        <p ng-show="stockForm.toRep.$invalid && !stockForm.toRep.$pristine" class="help-block">Sales Rep. is required.</p>
+                    </div>
+
+                    <div ng-if="role === 'SalesAdmin'" class="form-group" ng-class="{ 'has-error' : stockForm.toManager.$invalid && !stockForm.toManager.$pristine }">
+                        <label class="col-md-4 control-label">Manager:</label>
+                        <div class="col-md-8">
+                            <select id="toManager" name="toManager"
+                                    ng-model="stock.ToUserID"
+                                    ng-options="manager.ID as manager.Name for manager in managers"
+                                    class="form-control"
+                                    required></select>
+                        </div>
+                        <p ng-show="stockForm.toManager.$invalid && !stockForm.toManager.$pristine" class="help-block">Sales Rep. is required.</p>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : stockForm.category.$invalid && !stockForm.category.$pristine }">
+                        <label class="col-md-4 control-label">Category:</label>
+                        <div class="col-md-8">
+                            <select id="category" name="category"
+                                    ng-model="catId"
+                                    ng-options="cat.CategoryID as cat.categoryName for cat in categories"
+                                    ng-change="getItems(catId)"
+                                    class="form-control"
+                                    required></select>
+                        </div>
+                        <p ng-show="stockForm.category.$invalid && !stockForm.category.$pristine" class="help-block">
+                            Category is required.
+                        </p>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : stockForm.item.$invalid && !stockForm.item.$pristine }">
+                        <label class="col-md-4 control-label">Item:</label>
+                        <div class="col-md-4">
+                            <select id="item" name="item"
+                                    ng-model="stock.Item"
+                                    ng-options="item as item.Name for item in items"
+                                    class="form-control"
+                                    required></select>
+                        </div>
+                        <label ng-show="stock.Item" class="col-md-2 control-label">Balance:</label>
+                        <div ng-show="stock.Item" class="col-md-2">
+                            <label class="form-control">{{stock.Item.Balance}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : stockForm.quantity.$invalid && !stockForm.quantity.$pristine }">
+                        <label class="col-md-4 control-label">Quantity:</label>
+                        <div class="col-md-8">
+                            <input id="quantity" name="quantity" type="number" max="{{stock.Item.Balance}}"
+                                   ng-model="stock.Quantity"
+                                   class="form-control"
+                                   required />
+                        </div>
+                        <p ng-show="stockForm.quantity.$invalid && !stockForm.quantity.$pristine" class="help-block">
+                            Quantity is not valid.
+                        </p>
+                    </div>
+
+                    <div class="dropdown pull-right">
+                        <button ng-disabled="stockForm.$invalid" type="submit" class="btn btn-success waves-effect w-md m-b-5">Assign</button>
+                        <button data-dismiss="modal" type="button" class="btn btn-danger waves-effect w-md m-b-5">Close</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="assets/js/jquery.app.js"></script>
