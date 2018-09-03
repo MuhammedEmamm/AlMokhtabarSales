@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html ng-app="app" ng-cloak>
+<html ng-app="app">
 
 <head>
 	<!--<title>Manager -El mokhtabar</title>-->
@@ -44,7 +44,7 @@
 
 </head>
 
-<body ng-controller="ApplicationController">
+<body ng-controller="ApplicationController"  ng-cloak>
 
 	<div id="wrapper" ng-if="$state.current.data.pageType === 'partial'">
 		<!-- Top Bar Start -->
@@ -118,7 +118,7 @@
 				<!--- Sidemenu -->
 				<div id="sidebar-menu">
 					<ul>
-						<li ng-if="role === 'SalesManager' || role === 'SalesAdmin'">
+						<li ng-if="role === 'SalesManager' || role === 'SalesAdmin' && role === Role && UID === UserID ">
 							<a ui-sref="TeamList" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'team'}">
                                 <i class="glyphicon glyphicon-user"></i>
                                 <span> My Team </span>
@@ -138,7 +138,7 @@
                             </a>
 						</li>
 
-						<li ng-if="role === 'SalesRep' || role === 'SalesManager'">
+						<li ng-if="role === 'SalesRep' || role === 'SalesManager' && role === Role && UID === UserID">
 							<a ui-sref="DoctorsCreate" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'doctorCreate'}">
                                 <i class="glyphicon glyphicon-plus"></i>
                                 <span> New Doctor  </span>
@@ -152,21 +152,21 @@
                             </a>
 						</li>
 
-						<li ng-if="role === 'SalesManager' || role === 'SalesRep'">
+						<li ng-if="role === 'SalesRep' || role === 'SalesManager' && role === Role && UID === UserID">
 							<a ui-sref="TodayVisits" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'visits'}">
 								<i class="glyphicon glyphicon-time"></i>
 								<span> Today visit </span>
 							</a>
 						</li>
 
-						<li ng-if="role === 'SalesRep' || role === 'SalesManager'">
+						<li ng-if="role === 'SalesRep' || role === 'SalesManager' && role === Role && UID === UserID">
 							<a ui-sref="VisitPlan" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'plan'}">
                                 <i class="glyphicon glyphicon-calendar"></i>
                                 <span> Visit plan </span>
                             </a>
 						</li>
 						<li>
-							<a ng-if="role === 'SalesManager' || role === 'SalesAdmin'" ui-sref="Stock" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'stock'}">
+							<a ng-if="role === 'SalesManager' || role === 'SalesAdmin' && role === Role && UID === UserID" ui-sref="Stock" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'stock'}">
                                 <i class="glyphicon glyphicon-gift"></i>
                                 <span> My stock </span>
                             </a>
@@ -231,10 +231,13 @@
 
 	</div>
 
+	
+	
 	<!--<div login-dialog ng-show="!isLoginPage"></div>-->
 	<script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+	<script src="Assets/JS/angular-idle.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-animate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
@@ -244,8 +247,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDyA2zgNQwv6xR-lWESzYRR5nLL0TFN7UM
-&sensor=false&language=en"></script>
+	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHEf9V6oF75N3mH6aTrrGWBREjv8Bm6m4&sensor=true&language=en"></script>
 
 
 	<script src="Assets/JS/angular-cookies.min.js"></script>
@@ -306,6 +308,27 @@
 
 
 	<script src="app/services/AuthService.js"></script>
+	
+	<script type="text/ng-template" id="warning-dialog.html">
+  <div class="modal-header">
+   <h3>You're Idle. Do Something!</h3>
+  </div>
+  <div idle-countdown="countdown" ng-init="countdown=5" class="modal-body">
+   <uib-progressbar max="5" value="5" animate="false" class="progress-striped active" style="height: 30px"><b style="font-size: 15px">You'll be logged out in {{countdown}} second(s).</b></uib-progressbar>
+  </div>
+
+</script>
+<script type="text/ng-template" id="timedout-dialog.html">
+  <div class="modal-header">
+   <h3>You've Timed Out!</h3>
+  </div>
+  <div class="modal-body">
+   <p>
+	   Logged Out !
+   </p>
+ </div>
+</script>
+	
 </body>
 
 </html>

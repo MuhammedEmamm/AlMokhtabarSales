@@ -4,10 +4,12 @@
     angular.module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$scope', '$rootScope', '$state', 'AUTH_EVENTS', 'AuthService' , '$cookies'];
+    LoginController.$inject = ['$scope', '$rootScope', '$state', 'AUTH_EVENTS', 'AuthService' , '$cookies' ,'Idle'];
 
-    function LoginController($scope, $rootScope, $state, AUTH_EVENTS, AuthService , $cookies) {
+    function LoginController($scope, $rootScope, $state, AUTH_EVENTS, AuthService , $cookies , Idle) {
 		$scope.Presslogin = false ; 
+		$rootScope.login = true ; 
+		Idle.unwatch();
 		
         $scope.credentials = {
             username: '',
@@ -19,18 +21,19 @@
 
         $scope.login = function (credentials) {
 			$scope.Presslogin = true ; 
-            AuthService.login(credentials , $scope.remme).then(function (user) {
+			AuthService.login(credentials , $scope.remme).then(function (user) {
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 $state.go('DoctorsList');
 
             }, function () {
                 console.log('failed');
-						$scope.Presslogin = false ; 
+				$scope.Presslogin = false ; 
 
                 $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
                 $scope.invalidMsg = "Invalid username or password.";
             });
-        };
+
+        	};
 		
 
     }

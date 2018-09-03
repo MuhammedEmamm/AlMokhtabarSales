@@ -6,6 +6,9 @@
     AvtReportController.$inject = ['$scope', '$rootScope', '$state', '$http','BASE_URL', 'HTTP_HEADERS','$cookies'];
 
     function AvtReportController($scope, $rootScope, $state, $http, AuthService, Session, BASE_URL, HTTP_HEADERS,$cookies) {
+			if($cookies.getObject('isloggedin')!== 'true'){
+				$state.go('Login') ; 
+			}
 		var today = new Date() ; 
 		var curmonth = today.getMonth() ; 
         $scope.role = $cookies.getObject('RoleName');
@@ -20,9 +23,11 @@
                     "CompanyID": 10
                 },
                 headers: {
+           
                     "content-type": "Application/json",
                     "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID')
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
                 }
 			}).then(function(response){
 				//(response.data) ; 

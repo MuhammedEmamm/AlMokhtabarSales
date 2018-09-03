@@ -6,6 +6,9 @@
 	TodayVisitsCtrl.$inject = ['$scope', '$rootScope', '$state', '$http', 'BASE_URL','$cookies'];
 
 	function TodayVisitsCtrl($scope, $rootScope, $state, $http, BASE_URL,$cookies) {
+			if($cookies.getObject('isloggedin')!== 'true'){
+				$state.go('Login') ; 
+			}
 		var today = new Date();
 		var dd = today.getDate();
 		var mm = today.getMonth() + 1; //January is 0!
@@ -25,9 +28,11 @@
 			url: BASE_URL + "/Visit/GetVisits",
 			
 			headers: {
-				"Content-Type": "Application/json",
-				"Token": $cookies.getObject('SecurityToken'),
-				"UserID": $cookies.getObject('UserID')
+		
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 			},
 			data: {
 				day: $scope.visitsdate,

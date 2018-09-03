@@ -4,17 +4,21 @@
     angular.module('app')
         .controller('ApplicationController', ApplicationController);
 
-    ApplicationController.$inject = ['$scope', '$rootScope','AuthService', 'BASE_URL', '$state', '$http', '$cookies','AUTH_EVENTS'];
+    ApplicationController.$inject = ['$scope', '$rootScope','AuthService', 'BASE_URL', '$state', '$http', '$cookies','AUTH_EVENTS', 'Idle' , 'Keepalive' , '$uibModal'];
 
-    function ApplicationController($scope, $rootScope, AuthService, BASE_URL, $state, $http, $cookies,AUTH_EVENTS) {
+    function ApplicationController($scope, $rootScope, AuthService, BASE_URL, $state, $http, $cookies,AUTH_EVENTS , Idle, Keepalive, $uibModal) {
+		if($cookies.getObject('isloggedin')!== true){
+				$state.go('Login') ; 
+			}
+		$scope.started = false;		
 		var expiresdate = new Date(2040,12,1);
-		$state.go('Login') ; 
 
 		$scope.oldest = [] ; 
 		$scope.oldest.push(-1) ; 
 		//le.log($scope.oldest) ; 
 			if($cookies.getObject('isloggedin')=="true"){
 				$scope.role = $cookies.getObject('RoleName');
+				$scope.roleid = $cookies.getObject('RoleID') ; 
             	$scope.userName = $cookies.getObject('FullName');
 				$scope.ppUrl = $cookies.getObject('ImageURL');
 			}
@@ -24,6 +28,11 @@
             $scope.role = $cookies.getObject('RoleName');
             $scope.userName = $cookies.getObject('FullName');
             $scope.ppUrl = $cookies.getObject('ImageURL');
+			$scope.UID = $cookies.getObject('UserID');
+			
+			$scope.Role = AuthService.RoleName ; 
+			$scope.UserID = AuthService.UserID ; 
+			
 			if($cookies.getObject('Remme'))
 			$cookies.putObject('isloggedin',"true"  , {
 						'expires': (expiresdate)
@@ -59,9 +68,11 @@
 				method:"POST",
 				url: BASE_URL + "/Visit/GetNotifications",
 				headers:{
-					"content-type": "Application/json",
+		
+                    "content-type": "Application/json",
                     "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID')
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data:{
 					"CompanyID" : 10 
@@ -107,12 +118,60 @@
 			}
 		}, 120000)
 		
-		setInterval(function(){
-			console.clear()
-		} , 5000) ; 
+//		setInterval(function(){
+//			console.clear()
+//		} , 5000) ; 
+//		
+		//console.log($rootScope.login) ; 
+		if($rootScope.login===false){
+					      function closeModals() {
+        if ($scope.warning) {
+          $scope.warning.close();
+          $scope.warning = null;
+        }
+
+        if ($scope.timedout) {
+          $scope.timedout.close();
+          $scope.timedout = null;
+        }
+      }
+
+      $scope.$on('IdleStart', function() {
+        closeModals();
+
+        $scope.warning = $uibModal.open({
+          templateUrl: 'warning-dialog.html',
+          windowClass: 'modal-danger'
+        });
+      });
+
+      $scope.$on('IdleEnd', function() {
+        closeModals();
+      });
+
+			$scope.$on('IdleTimeout', function() {
+        closeModals();
+		  $rootScope.logout() ; 
+        
+      });
+
+      $scope.start = function() {
+        closeModals();
+        Idle.watch();
+        $scope.started = true;
+      };
+
+      $scope.stop = function() {
+        closeModals();
+        Idle.unwatch();
+        $scope.started = false;
+
+      };
+		$scope.start() ; 
 		
-		
-		
+				}
+
+
         $rootScope.logout = function () {
 			AuthService.logout();
             $state.go('Login');

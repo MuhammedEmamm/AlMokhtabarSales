@@ -6,6 +6,9 @@
 	VisitPlanCtrl.$inject = ['$scope', '$rootScope', '$state', '$http', 'BASE_URL', '$cookies'];
 
 	function VisitPlanCtrl($scope, $rootScope, $state, $http, BASE_URL, $cookies) {
+			if($cookies.getObject('isloggedin')!== 'true'){
+				$state.go('Login') ; 
+			}
 		var today = new Date();
 		var mm = today.getMonth() + 1; //January is 0!
 		var yy = today.getFullYear();
@@ -44,9 +47,11 @@
 				method: "POST",
 				url: BASE_URL + "/Visit/GetPlanVisits",
 				headers: {
-					"Content-Type": "application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					"UserID": $cookies.getObject('UserID')
+
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data: {
 					"Month": $scope.nexmonth,
@@ -68,9 +73,11 @@
 				method: "POST",
 				url: BASE_URL + '/Visit/CreateVisitPlan',
 				headers: {
-					"Content-Type": "application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					"UserID": $cookies.getObject('UserID')
+				
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data: {
 					UserName: $cookies.getObject('FullName'),
@@ -91,9 +98,11 @@
 				method: "POST",
 				url: BASE_URL + "/Visit/GetPlanVisits",
 				headers: {
-					"Content-Type": "application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					"UserID": $cookies.getObject('UserID')
+				
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data: {
 					"Month": mm,
@@ -128,9 +137,11 @@
 				method: "POST",
 				url: BASE_URL + "/Visit/GetPlanVisits",
 				headers: {
-					"Content-Type": "application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					"UserID": $cookies.getObject('UserID')
+				
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data: {
 					"Month": y,
@@ -166,9 +177,11 @@
 				method: "POST",
 				url: BASE_URL + "/Doctor/GetDoctors",
 				headers: {
-					"Content-Type": "application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					UserID: $cookies.getObject('UserID'),
+				
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data: {
 					"UserID": $cookies.getObject('UserID'),
@@ -213,9 +226,11 @@
 				method: "POST",
 				url: BASE_URL + "/Doctor/GetDoctorOrgs",
 				headers: {
-					"Content-Type": "application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					UserID: $cookies.getObject('UserID'),
+			
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data: {
 					DoctorID: x,
@@ -238,9 +253,11 @@
 				method: "POST",
 				url: BASE_URL + "/Visit/CreateVisit",
 				headers: {
-					"Content-Type": "application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					UserID: $cookies.getObject('UserID'),
+				
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data: {
 					"UserID": $cookies.getObject('UserID'),
@@ -276,9 +293,11 @@
 				method: "POST",
 				url: BASE_URL + "/Visit/CreateVisit",
 				headers: {
-					"Content-Type": "application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					UserID: $cookies.getObject('UserID'),
+				
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data: {
 					"UserID": $cookies.getObject('UserID'),
@@ -368,9 +387,11 @@
 					method: "POST",
 					url: BASE_URL + "/Visit/ChangeVisitDate",
 					headers: {
-						"Content-Type": "Application/json",
-						"Token": $cookies.getObject('SecurityToken'),
-						"UserID": $cookies.getObject('UserID')
+					
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 					},
 					data: {
 						VisitID: $scope.visitid,
@@ -391,9 +412,11 @@
 				method: "POST",
 				url: BASE_URL + "/Visit/SubmitVisitPlan",
 				headers: {
-					"Content-Type": "Application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					"UserID": $cookies.getObject('UserID')
+				
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data: {
 					"CompanyID": 10
@@ -419,9 +442,11 @@
 					"CompanyID": 10
 				},
 				headers: {
-					"Content-Type": "Application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					"UserID": $cookies.getObject('UserID')
+				
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				}
 			}).then(function (res) {
 				//(res.data);
@@ -476,9 +501,11 @@
 				method : "POST" , 
 				url : BASE_URL + '/Visit/GetPlanDeadline',
 				headers :{
-					"content-type": "Application/json",
+				
+                    "content-type": "Application/json",
                     "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID')
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				} , 
 				data : {
 				"CompanyID":10
@@ -720,6 +747,9 @@
 	VisitPlanCreateCtrl.$inject = ['$scope', '$rootScope', '$state', '$http', 'BASE_URL', '$cookies'];
 
 	function VisitPlanCreateCtrl($scope, $rootScope, $state, $http, BASE_URL, $cookies) {
+		if($cookies.getObject('isloggedin')!== 'true'){
+				$state.go('Login') ; 
+			}
 		////("vis create");
 		$scope.previousmonths = [];
 		var today = new Date();
@@ -833,9 +863,11 @@
 				method: "POST",
 				url: BASE_URL + "/Doctor/GetDoctors",
 				headers: {
-					"Content-Type": "application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					UserID: $cookies.getObject('UserID'),
+				
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data: {
 					"UserID": $cookies.getObject('UserID'),
@@ -875,9 +907,11 @@
 				method: "POST",
 				url: BASE_URL + "/Visit/GetPlanVisits",
 				headers: {
-					"Content-Type": "application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					"UserID": $cookies.getObject('UserID')
+				
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data: {
 					"Month": mm,
@@ -916,9 +950,11 @@
 					method: "POST",
 					url: BASE_URL + "/Visit/CreateVisitPlan",
 					headers: {
-						"Content-Type": "application/json",
-						"Token": $cookies.getObject('SecurityToken'),
-						"UserID": $cookies.getObject('UserID')
+						
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 					},
 					data: {
 						UserName: $cookies.getObject('FullName'),
@@ -937,9 +973,11 @@
 					method: "POST",
 					url: BASE_URL + "/Visit/CopyMonthVisitPlan",
 					headers: {
-						"content-type": "Application/json",
-						"Token": $cookies.getObject('SecurityToken'),
-						"UserID": $cookies.getObject('UserID')
+				
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 					},
 					data: {
 						"UserName": $cookies.getObject('FullName'),
@@ -967,9 +1005,11 @@
 				method: "POST",
 				url: BASE_URL + "/Visit/CreateVisit",
 				headers: {
-					"Content-Type": "application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					UserID: $cookies.getObject('UserID'),
+				
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data: {
 					"UserID": $cookies.getObject('UserID'),
@@ -1013,9 +1053,11 @@
 				method: "POST",
 				url: BASE_URL + "/Doctor/GetDoctorOrgs",
 				headers: {
-					"Content-Type": "application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					UserID: $cookies.getObject('UserID'),
+				
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data: {
 					"DoctorID": x,
@@ -1064,9 +1106,11 @@
 				method: "POST",
 				url: BASE_URL + "/Visit/SubmitVisitPlan",
 				headers: {
-					"Content-Type": "Application/json",
-					"Token": $cookies.getObject('SecurityToken'),
-					"UserID": $cookies.getObject('UserID')
+				
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				},
 				data: {
 					"CompanyID": 10
@@ -1088,9 +1132,11 @@
 				method : "POST" , 
 				url : BASE_URL + '/Visit/GetPlanDeadline',
 				headers :{
-					"content-type": "Application/json",
+				
+                    "content-type": "Application/json",
                     "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID')
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
 				} , 
 				data : {
 				"CompanyID":10

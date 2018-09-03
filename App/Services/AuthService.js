@@ -3,9 +3,9 @@
 
 	angular.module('app').factory('AuthService', AuthService);
 
-	AuthService.$inject = ['$http', 'BASE_URL', 'HTTP_HEADERS', '$cookies','AUTH_EVENTS'];
+	AuthService.$inject = ['$rootScope' , '$http', 'BASE_URL', 'HTTP_HEADERS', '$cookies','AUTH_EVENTS'];
 
-	function AuthService($http, BASE_URL, HTTP_HEADERS, $cookies,AUTH_EVENTS ) {
+	function AuthService( $rootScope , $http, BASE_URL, HTTP_HEADERS, $cookies,AUTH_EVENTS ) {
 		var authService = {};
 		var expiresdate = new Date(2040,12,1);
 
@@ -24,7 +24,10 @@
 				data: loginData,
 				headers: HTTP_HEADERS
 			}).then(function (res) {
-
+				
+				authService.RoleName = res.data.Response.RoleName ; 
+				authService.UserID = res.data.Response.UserID ; 
+				
 				if (x) {
 					
 					$cookies.putObject('SecurityToken', res.data.Response.SecurityToken, {
@@ -65,7 +68,7 @@
 			
 				}	
 
-			});
+			}); 
 		};
 
 		authService.logout = function () {

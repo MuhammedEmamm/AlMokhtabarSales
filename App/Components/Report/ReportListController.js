@@ -6,7 +6,9 @@
     ReportListController.$inject = ['$scope', '$rootScope', '$state', '$http','BASE_URL', 'HTTP_HEADERS','$cookies'];
 
     function ReportListController($scope, $rootScope, $state, $http, BASE_URL, HTTP_HEADERS,$cookies) {
-
+	if($cookies.getObject('isloggedin')!== 'true'){
+				$state.go('Login') ; 
+			}
         $scope.role = $cookies.getObject('RoleName');
 
         //var dateString = date.toISOString().split('T')[0]; // "2016-06-08"
@@ -48,9 +50,11 @@
                     "CompanyID": 10
                 },
                 headers: {
+       
                     "content-type": "Application/json",
                     "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID')
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
                 }
             }).then(function (res) {
                 //(res.data);
@@ -80,9 +84,11 @@
                     "CompanyID": 10
                 },
                 headers: {
+        
                     "content-type": "Application/json",
                     "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID')
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
                 }
             }).then(function (res) {
                 //(res.data);
@@ -97,9 +103,11 @@
                     "CompanyID": 10
                 },
                 headers: {
+
                     "content-type": "Application/json",
                     "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID')
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
                 }
             }).then(function (res) {
                 //(res.data);
@@ -117,9 +125,11 @@
                     "CompanyID": 10
                 },
                 headers: {
+      
                     "content-type": "Application/json",
                     "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID')
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
                 }
             }).then(function (res) {
              //   console.log(res.data);
@@ -142,9 +152,11 @@
                         "CompanyID": 10
                     },
                     headers: {
-                        "content-type": "Application/json",
-                        "Token": $cookies.getObject('SecurityToken'),
-                        "UserID": $cookies.getObject('UserID')
+ 
+                    "content-type": "Application/json",
+                    "Token": $cookies.getObject('SecurityToken'),
+                    "UserID": $cookies.getObject('UserID') , 
+					'X-Frame-Options' : 'DENY'
                     }
                 }).then(function (res) {
                     if (res.data.IsSuccess) {
