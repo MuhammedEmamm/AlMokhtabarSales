@@ -4,7 +4,6 @@
 * Module/App: Main Js
 */
 
-	 var resizefunc = [];
 
 !function($) {
     "use strict";
@@ -144,8 +143,7 @@ function($) {
 //main app module
  function($) {
     "use strict";
-	
-	
+
     var App = function() {
         this.VERSION = "1.5.0",
         this.AUTHOR = "Coderthemes",
@@ -168,9 +166,11 @@ function($) {
       $(window).resize(debounce(resizeitems,100));
       $("body").trigger("resize");
 
-      //
-			
-	
+      // right side-bar toggle
+      $('.right-bar-toggle').on('click', function(e){
+
+          $('#wrapper').toggleClass('right-bar-enabled');
+      });
 
 
     },

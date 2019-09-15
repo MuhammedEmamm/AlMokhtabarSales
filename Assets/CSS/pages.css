@@ -107,6 +107,7 @@ a.editable-click:hover {
   box-shadow: none;
   padding: 3px 7px 6px;
   border: 1px solid #e3e3e3;
+  width: 100%
 }
 .bootstrap-tagsinput .label-info {
   background-color: #71b6f9 !important;
@@ -2336,76 +2337,15 @@ div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-ar
 .comment > .comment {
   margin-left: 32px !important;
 }
-/*New style*/
-.StockClass{
-      margin-top: 15px !important;
-    margin-right: 8px !important;
+.icon-1 i{
+  padding-top: 50px;
+  padding-bottom: 50px;
+  color: #444;
+  font-size: 20px;
 }
-.Setting-dropdoen{
-    margin-left: -71px;
-}
-/*  */
-.Request .nav-tabs>li.active>a,.Request .nav-tabs>li.active>a:focus,.Request .nav-tabs>li.active>a:hover{
-  background-color: #e3da14;
-}
-.alert {
-  padding: 20px;
-  background-color: #ffffff;
-  color:gray;
-}
-
-.closebtn {
-  margin-right: 7px;
-  color: gray;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-  margin-top: 3px;
-}
-
-.closebtn:hover {
-  color: black;
-}
-.notification-1 .avatar{
-  float: left;
-  margin-right: 5px;
-  width: 63px;
-  height: 53px;
-}
-.notification-1  .list-group-item {
-  border-bottom: 1px solid rgba(152, 166, 173, 0.2) !important;
-  margin-bottom: 0px;
-  background: rgba(152, 166, 173, 0.2);
-}
-.notification-1 .avatar img {
-  border-radius: 50%;
-  width: 100%;
-}
-.notification-1 .user-desc {
-  margin-left: 71px;
-}
-.notification-1 .user-desc span.name {
-  color: #435966;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: block;
-  width: 100%;
-  overflow: hidden;
-}
-.notification-1  .user-desc span.desc {
-  color: #98a6ad;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  font-size: 12px;
-}
-.notification-1 .user-desc span.time {
-  font-size: 11px;
-  color: #71b6f9;
-  font-style: italic;
+.icon-2 i{
+  padding-top: 32px;
+  padding-bottom: 50px;
+  color: #444;
+  font-size: 20px;
 }
