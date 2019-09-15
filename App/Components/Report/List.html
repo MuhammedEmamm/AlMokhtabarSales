@@ -1,8 +1,8 @@
 ﻿<div class="container">
 
 	<div class="row">
-		<div class="col-lg-4 col-md-6">
-			<div class="card-box">
+		<div class="col-lg-4 col-md-6" >
+			<div class="card-box" style="height: 215px">
 				
 				<h4 class="header-title m-t-0 m-b-30">Average of visits Time</h4>
 				<div class="widget-chart-1">
@@ -26,14 +26,14 @@
 					<div class="widget-detail-1">
 						<h2 class="p-t-10 m-b-0"> {{targetAVT}} </h2>
 						<p class="text-muted">Total time</p>
-						<p class="text-muted" style="margin: 0px;"><a ui-sref="AVTReport" style="cursor: pointer" ng-if="role!='SalesRep'">Details</a></p>
+						<p class="text-muted" style="margin: 0px;"><a ui-sref="AVTReport" style="cursor: pointer" ng-if="role!=='SalesRep'">Details</a></p>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- end col -->
 		<div class="col-lg-4 col-md-6">
-			<div class="card-box">
+			<div class="card-box" style="height: 215px">
 				
 				<h4 class="header-title m-t-0 m-b-30">Target &amp; Achieved</h4>
 				<div class="widget-box-2">
@@ -42,18 +42,31 @@
 						<h2 class="m-b-0"> {{targetVisit}} </h2>
 						<p class="text-muted m-b-25">Total visits target</p>
 					</div>
+<!--
+					
 					<div class="progress progress-bar-success-alt progress-sm m-b-0">
 						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{achievedPercent}}" aria-valuemin="0" aria-valuemax="100" ng-style="myStyle">
 							<pre>myStyle={{achievedPercent}}</pre>
 							<span class="sr-only">{{achievedPercent}}% Complete</span>
 						</div>
 					</div>
+-->
+<!--
+					    <div class="progress">
+                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{achievedPercent}}" aria-valuemin="0" aria-valuemax="100" style="width:{{AVT}}%">
+                                &nbsp;&nbsp;{{achievedPercent}} &#37;
+                            </div>
+                        </div>
+					
+-->
+					<p class="text-muted" style="margin: 0px;"><a ui-sref="T&AReport" style="cursor: pointer" ng-if="role!=='SalesRep'">Details</a></p>
+
 				</div>
 			</div>
 		</div>
 		<!-- end col -->		
 		<div class="col-lg-4 col-md-6">
-			<div class="card-box">
+			<div class="card-box" style="height: 215px"	>
 				
 				<h4 class="header-title m-t-0 m-eb-30">Amount    <b style="font-size: 10px ; margin-left: 58%">  Target Amount  {{targetamount}}</b></h4>
 
@@ -71,7 +84,7 @@
 		</div>
 
 		<div class="col-lg-4 col-md-6" ng-show="role ==='SalesRep'">
-			<div class="card-box">
+			<div class="card-box" style="height: 215px">
 				
 				<h4 class="header-title m-t-0 m-eb-30">Missed visits</h4>
 				<div class="widget-chart-1">
@@ -96,7 +109,7 @@
 		</div>
 
 		<div class="col-lg-4 col-md-6" ng-show="role !== 'SalesRep'">
-			<div class="card-box">
+			<div class="card-box" style="height: 215px">
 				
 				<h4 class="header-title m-t-0 m-b-30">Stock Report</h4>
 				<div class="widget-chart-1">
@@ -137,7 +150,7 @@
 	<!-- end row -->
 	<div class="row" ng-show="role === 'SalesRep'" >
 		<div class="col-lg-12">
-			<div class="card-box">
+			<div class="card-box" style="height: 215px">
 				<h4 class="header-title m-t-0 m-b-30">Missed visits</h4>
 				<div class="row">
 					<div class="col-sm-3"></div>
@@ -232,6 +245,12 @@
 						<thead>
 							<tr>
 								<th>
+									SalesRep
+									<a class="pull-right" ng-click="reportOrderField='SalesRepName'; reportReverse = !reportReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+								<th>
 									Doctor
 									<a class="pull-right" ng-click="reportOrderField='DoctorName'; reportReverse = !reportReverse">
                                         <span class="glyphicon glyphicon-sort pull-right"></span>
@@ -249,6 +268,7 @@
                                         <span class="glyphicon glyphicon-sort pull-right"></span>
                                     </a>
 								</th>
+								
 								<th>
 									Visit Comment
 									<a class="pull-right" ng-click="reportOrderField='VisitComment'; reportReverse = !reportReverse">
@@ -276,10 +296,27 @@
                                         <span class="glyphicon glyphicon-sort pull-right"></span>
                                     </a>
                                 </th>
+								<th>
+                                    Target
+                                    <a class="pull-right"
+                                       ng-click="reportOrderField='Target'; reportReverse = !reportReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+								<th>
+                                    Amount
+                                    <a class="pull-right"
+                                       ng-click="reportOrderField='Amount'; reportReverse = !reportReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+                                </th>
+								
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="item in report | orderBy: reportOrderField : reortReverse | filter: searchReportTerm track by $index">
+							<tr ng-repeat="item in report | orderBy: reportOrderField : reportReverse | filter: searchReportTerm track by $index">
+								
+								<td>{{item.SalesRepName}}</td>
 								<td>{{item.DoctorName}}</td>
 								<td>{{item.VisitDate | date:'dd-MM-yyyy'}}</td>
 								<td>
@@ -289,10 +326,15 @@
                                         {{item.VisitFeedback}}
                                     </label>
 								</td>
+								
 								<td>{{item.VisitComment}}</td>
+								
 								<td>{{item.TestName}}</td>
                                 <td>{{item.TestFeedback}}</td>
                                 <td>{{item.TestComment}}</td>
+								<td>{{item.Target}}</td>
+								<td>{{item.Amount}}</td>
+								
 							</tr>
 						</tbody>
 					</table>
@@ -303,7 +345,6 @@
 		</div>
 
 	</div>
-    <script src="assets/js/jquery.app.js"></script>
 
 	<div id="myModal" class="modal" role="dialog" style="overflow-y: scroll;">
 		<div class="modal-dialog">

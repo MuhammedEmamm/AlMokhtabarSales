@@ -4,9 +4,9 @@
     var app = angular.module('app', ['ui.router', 'ui.bootstrap','ngCookies','google-maps','ngIdle']);
 
     app.config(function ($stateProvider, $urlRouterProvider, USER_ROLES , $locationProvider , KeepaliveProvider, IdleProvider) {
-         IdleProvider.idle(10);
-  		IdleProvider.timeout(10);
-		KeepaliveProvider.interval(10);
+         IdleProvider.idle(900);
+  		IdleProvider.timeout(60);
+		KeepaliveProvider.interval(60);
 		$urlRouterProvider.otherwise('/Login');
 		   $locationProvider.hashPrefix('');
 			  //      $locationProvider.html5Mode(true);
@@ -130,6 +130,17 @@
                 pageId: "report"
             }
         })
+	   .state("T&AReport", {
+            url: '/Report/T&AReport',
+            templateUrl: "App/Components/Report/T&A.html",
+            controller: "TAReportController",
+            data: {
+                pageTitle: "My Reports",
+                pageType: "partial",
+                pageId: "report"
+            }
+        })	
+		
 	   .state("DetailedAmount", {
             url: '/Report/DetailedAmount',
             templateUrl: "App/Components/Report/DetailedAmount.html",

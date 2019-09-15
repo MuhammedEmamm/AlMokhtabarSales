@@ -25,7 +25,7 @@
 		$scope.visitsdate = today;
 		$http({
 			method: "POST",
-			url: BASE_URL + "/Visit/GetVisits",
+			url: BASE_URL + "/Visit/GetVisitsByDay",
 			
 			headers: {
 		

@@ -132,7 +132,7 @@
 					'X-Frame-Options' : 'DENY'
                 }
             }).then(function (res) {
-             //   console.log(res.data);
+             console.log(res.data);
 				$scope.report = res.data.Response;
             });
         };

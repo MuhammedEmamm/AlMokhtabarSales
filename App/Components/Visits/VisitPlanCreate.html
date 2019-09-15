@@ -57,7 +57,7 @@
 													<h2 ng-if="visits.length === 0 ">No Visits Added</h2>
 													<!-- checkbox -->
 													<div class="checkbox m-t-40 text-center">
-														<button class="btn  btn-danger btn-lg" ng-click="submitvisitplan()" ng-if="cancreate!='Submitted'&&cancreate!='Approved'">Submit Visit Plan</button>
+														<button class="btn  btn-danger btn-lg" ng-click="submitvisitplan()" ng-if="cancreate!='Submitted'&&cancreate!='Approved' &&cancreate!='No provided plan for this month'  " ng-disabled="deadline <= day">Submit Visit Plan</button>
 													</div>
 												</div>
 											</div>
@@ -227,9 +227,6 @@
 
 <!-- Datatable init js -->
 <script src="assets/pages/datatables.init.js"></script>
-<!-- App js -->
-<script src="assets/js/jquery.core.js"></script>
-    <script src="assets/js/jquery.app.js"></script>
 
 <!-- Jquery-Ui -->
 <script src="assets/plugins/jquery-ui/jquery-ui.min.js"></script>

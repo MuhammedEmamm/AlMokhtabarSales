@@ -3,21 +3,95 @@
 
 	angular.module('app').controller('TeamListController', TeamListController);
 
-	TeamListController.$inject = ['$scope', '$rootScope', '$state', '$http','BASE_URL', 'HTTP_HEADERS', '$cookies'];
+	TeamListController.$inject = ['$scope', '$rootScope', '$state', '$http', 'BASE_URL', 'HTTP_HEADERS', '$cookies'];
 
 	function TeamListController($scope, $rootScope, $state, $http, BASE_URL, HTTP_HEADERS, $cookies) {
-			if($cookies.getObject('isloggedin')!== 'true'){
-				$state.go('Login') ; 
-			}
-		//$('#mapDate').datepicker();
-		$('#mapDate').datepicker(); ; 
-				$('#mapDate1').datepicker();;
+		if ($cookies.getObject('isloggedin') !== 'true') {
+			$state.go('Login');
+		}
+		$('#mapDate').datepicker();;
+		$('#mapDate1').datepicker();;
 
 		$scope.minDate = new Date(1990, 1, 1);
 		$scope.maxDate = new Date(2040, 1, 1);
 		$scope.role = $cookies.getObject('RoleName');
 		$scope.showManagers = true;
 		$scope.showReps = true;
+
+		var expiresdate = new Date(2040, 12, 1);
+
+
+		$scope.setexperiod = function () {
+			$http({
+				method: "POST",
+				url: BASE_URL + "/User/UpdatePeriod",
+				headers: {
+
+					"content-type": "Application/json",
+					"Token": $cookies.getObject('SecurityToken'),
+					"UserID": $cookies.getObject('UserID'),
+					'X-Frame-Options': 'DENY'
+				},
+				data: {
+					"Period": $scope.expr,
+					"UserID": $cookies.getObject('UserID'),
+					"CompanyID": 10
+				}
+			}).then(function (response) {
+				if (response.data.IsSuccess) {
+					$scope.message = "Changed Successfully";
+					console.log(response.data);
+					window.location.reload();
+					$("#PModal").modal("hide");
+				}
+			});
+
+		};
+
+		$scope.ResetPassword = function (x) {
+			$scope.date = new Date();
+
+			$scope.PressReset = true;
+
+			//			console.log($scope.date) ; 
+			$http({
+				method: 'POST',
+				url: BASE_URL + '/User/ResetPassword',
+				data: {
+					"UserID": x,
+					"CompanyID": 10,
+					"NewPassword": "1234",
+					"CreationDate": $scope.date
+
+				},
+				headers: {
+
+					"content-type": "Application/json",
+					"Token": $cookies.getObject('SecurityToken'),
+					"UserID": $cookies.getObject('UserID'),
+					'X-Frame-Options': 'DENY'
+				}
+
+			}).then(function (res) {
+				console.log(res.data);
+				if (res.data.IsSuccess) {
+
+					$scope.message1 = "Password Changed To 1234.";
+					$cookies.putObject('EX_P', $scope.date, {
+						'expires': (expiresdate)
+					});
+					$('#okModal2').modal('show');
+
+				} else {
+					$scope.message1 = "Error From Server.";
+
+				}
+
+			});
+
+
+		};
+
 		//($scope.role) ; 
 		var getTeam = function () {
 
@@ -28,19 +102,19 @@
 					"CompanyID": 10
 				},
 				headers: {
-		
-                    "content-type": "Application/json",
-                    "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID') , 
-					'X-Frame-Options' : 'DENY'
+
+					"content-type": "Application/json",
+					"Token": $cookies.getObject('SecurityToken'),
+					"UserID": $cookies.getObject('UserID'),
+					'X-Frame-Options': 'DENY'
 				}
 			}).then(function (res) {
-				//(res.data);
+				console.log(res.data);
 				$scope.team = res.data.Response;
-				document.getElementById('loading').style.display = "none" ; 
-				document.getElementById('loading1').style.display = "none" ; 
-				document.getElementById('loading2').style.display = "none" ; 
-				
+				document.getElementById('loading').style.display = "none";
+				document.getElementById('loading1').style.display = "none";
+				document.getElementById('loading2').style.display = "none";
+
 				$scope.team.forEach(function (i) {
 					if (i.Status === 'Activated') {
 						i.active = true;
@@ -48,12 +122,11 @@
 						i.active = false;
 					}
 				});
-				//($scope.team);
 			});
 
-		}; 
-		
-		 $scope.getSalesReps = function (x) {
+		};
+
+		$scope.getSalesReps = function (x) {
 			//(x);
 			$http({
 				method: 'POST',
@@ -63,12 +136,13 @@
 					"CompanyID": 10
 				},
 				headers: {
-			
-                    "content-type": "Application/json",
-                    "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID') , 
-					'X-Frame-Options' : 'DENY'
+
+					"content-type": "Application/json",
+					"Token": $cookies.getObject('SecurityToken'),
+					"UserID": $cookies.getObject('UserID'),
+					'X-Frame-Options': 'DENY'
 				}
+
 			}).then(function (res) {
 				//(res.data);
 				$scope.team = res.data.Response;
@@ -76,7 +150,7 @@
 			});
 
 		};
-		
+
 		var getManagerList = function () {
 			$http({
 				method: 'POST',
@@ -85,25 +159,24 @@
 					"CompanyID": 10
 				},
 				headers: {
-		
-                    "content-type": "Application/json",
-                    "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID') , 
-					'X-Frame-Options' : 'DENY'
+
+					"content-type": "Application/json",
+					"Token": $cookies.getObject('SecurityToken'),
+					"UserID": $cookies.getObject('UserID'),
+					'X-Frame-Options': 'DENY'
 				}
 			}).then(function (res) {
 				$scope.managerList = res.data.Response;
 				$scope.managerList.push({
-					ID:$cookies.getObject('UserID'),
-					Name : "All Sales Reps"
-				}) ; 
+					ID: $cookies.getObject('UserID'),
+					Name: "All Sales Reps"
+				});
 				//($scope.managerList) ; 
 
 				//(res.data);
 			});
 		};
-		
-		
+
 		var getManagers = function () {
 			$http({
 				method: 'POST',
@@ -112,17 +185,17 @@
 					"CompanyID": 10
 				},
 				headers: {
-				
-                    "content-type": "Application/json",
-                    "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID') , 
-					'X-Frame-Options' : 'DENY'
+
+					"content-type": "Application/json",
+					"Token": $cookies.getObject('SecurityToken'),
+					"UserID": $cookies.getObject('UserID'),
+					'X-Frame-Options': 'DENY'
 				}
 			}).then(function (res) {
 				$scope.managers = res.data.Response;
-				document.getElementById('loading1').style.display = "none" ; 
-				document.getElementById('loading').style.display = "none" ; 
-				
+				document.getElementById('loading1').style.display = "none";
+				document.getElementById('loading').style.display = "none";
+
 				$scope.managers.forEach(function (i) {
 					if (i.Status === 'Activated') {
 						i.active = true;
@@ -130,11 +203,10 @@
 						i.active = false;
 					}
 				});
-				//(res.data);
+				console.log(res.data);
 			});
 		};
-		
-		
+
 		var statusTo;
 		$scope.updateRepActivity = function (rep) {
 
@@ -155,18 +227,18 @@
 					"CompanyID": 10
 				},
 				headers: {
-		
-                    "content-type": "Application/json",
-                    "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID') , 
-					'X-Frame-Options' : 'DENY'
+
+					"content-type": "Application/json",
+					"Token": $cookies.getObject('SecurityToken'),
+					"UserID": $cookies.getObject('UserID'),
+					'X-Frame-Options': 'DENY'
 				}
 			}).then(function (res) {
 				//(res.data);
 				getTeam();
 			});
 		};
-		
+
 		$scope.updateManagerActivity = function (manager) {
 			getManagers();
 
@@ -193,11 +265,11 @@
 						"CompanyID": 10
 					},
 					headers: {
-			
-                    "content-type": "Application/json",
-                    "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID') , 
-					'X-Frame-Options' : 'DENY'
+
+						"content-type": "Application/json",
+						"Token": $cookies.getObject('SecurityToken'),
+						"UserID": $cookies.getObject('UserID'),
+						'X-Frame-Options': 'DENY'
 					}
 
 				}).then(function (res) {
@@ -222,95 +294,96 @@
 
 
 		};
-		$scope.getmap = function(){
+		$scope.getmap = function () {
 			////($scope.mapDate) ; 
 			////(document.getElementById('mapDate').value)	
 			////($scope.SalesRepID) ; 
-			$scope.mapDate = document.getElementById('mapDate').value ; 
+			$scope.mapDate = document.getElementById('mapDate').value;
 			$http({
-				method:"POST",
-				url:"http://yakensolution.cloudapp.net:80/IDHSales/api/Visit/MapLocaion",
-				headers:{
-			
-                    "content-type": "Application/json",
-                    "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID') , 
-					'X-Frame-Options' : 'DENY'
+				method: "POST",
+				url: "http://yakensolution.cloudapp.net:80/IDHSales/api/Visit/MapLocaion",
+				headers: {
+
+					"content-type": "Application/json",
+					"Token": $cookies.getObject('SecurityToken'),
+					"UserID": $cookies.getObject('UserID'),
+					'X-Frame-Options': 'DENY'
 				},
-				data:{
-					Day : $scope.mapDate,
-					SalesRepID:$scope.SalesRepID , 
-					CompanyID:10
+				data: {
+					Day: $scope.mapDate,
+					SalesRepID: $scope.SalesRepID,
+					CompanyID: 10
 				}
-			}).then(function(response){
-				$scope.allmarkers = response.data.Response ; 
+			}).then(function (response) {
+				$scope.allmarkers = response.data.Response;
 				//($scope.allmarkers) ;
-			
-		angular.extend($scope, {
-			centerProperty: {
-				lat: 30.044281,
-				lng: 31.340002
-			},
-			zoomProperty: 10,
-			markersProperty:$scope.allmarkers
-			,
-			clickedLatitudeProperty: null,	
-			clickedLongitudeProperty: null,
-		});
-		
-			}) ; 
-		};
-		$scope.getmap1 = function(){
-			////($scope.mapDate) ; 
-			////(document.getElementById('mapDate').value)	
-			////($scope.SalesRepID) ; 
-			$scope.mapDate1 = document.getElementById('mapDate1').value ; 
-			$http({
-				method:"POST",
-				url:"http://yakensolution.cloudapp.net:80/IDHSales/api/Visit/MapLocaion",
-				headers:{
-		
-                    "content-type": "Application/json",
-                    "Token": $cookies.getObject('SecurityToken'),
-                    "UserID": $cookies.getObject('UserID') , 
-					'X-Frame-Options' : 'DENY'
-				},
-				data:{
-					Day : $scope.mapDate1,
-					SalesRepID:$scope.SalesRepID , 
-					CompanyID:10
-				}
-			}).then(function(response){
-				$scope.allmarkers = response.data.Response ; 
-				//($scope.allmarkers) ;
-			
-		angular.extend($scope, {
-			centerProperty: {
-				lat: 30.044281,
-				lng: 31.340002
-			},
-			zoomProperty: 10,
-			markersProperty:$scope.allmarkers
-			,
-			clickedLatitudeProperty: null,	
-			clickedLongitudeProperty: null,
-		});
-		
-			}) ; 
-		};
-		
+
 				angular.extend($scope, {
+					centerProperty: {
+						lat: 30.044281,
+						lng: 31.340002
+					},
+					zoomProperty: 10,
+					markersProperty: $scope.allmarkers,
+					clickedLatitudeProperty: null,
+					clickedLongitudeProperty: null,
+				});
+
+			});
+		};
+		$scope.getmap1 = function () {
+			////($scope.mapDate) ; 
+			////(document.getElementById('mapDate').value)	
+			////($scope.SalesRepID) ; 
+			$scope.mapDate1 = document.getElementById('mapDate1').value;
+			$http({
+				method: "POST",
+				url: "http://yakensolution.cloudapp.net:80/IDHSales/api/Visit/MapLocaion",
+				headers: {
+
+					"content-type": "Application/json",
+					"Token": $cookies.getObject('SecurityToken'),
+					"UserID": $cookies.getObject('UserID'),
+					'X-Frame-Options': 'DENY'
+				},
+				data: {
+					Day: $scope.mapDate1,
+					SalesRepID: $scope.SalesRepID,
+					CompanyID: 10
+				}
+			}).then(function (response) {
+				$scope.allmarkers = response.data.Response;
+				//($scope.allmarkers) ;
+
+				angular.extend($scope, {
+					centerProperty: {
+						lat: 30.044281,
+						lng: 31.340002
+					},
+					zoomProperty: 10,
+					markersProperty: $scope.allmarkers,
+					clickedLatitudeProperty: null,
+					clickedLongitudeProperty: null,
+				});
+
+			});
+		};
+
+		angular.extend($scope, {
 			centerProperty: {
 				lat: 30.044281,
 				lng: 31.340002
 			},
 			zoomProperty: 10,
-			markersProperty:[],
-			clickedLatitudeProperty: null,	
+			markersProperty: [],
+			clickedLatitudeProperty: null,
 			clickedLongitudeProperty: null,
 		});
 		getTeam();
+		if($scope.role === 'SalesAdmin')
 		getManagers();
+		if($scope.role === 'SalesAdmin')
 		getManagerList();
+
 	}
 })();

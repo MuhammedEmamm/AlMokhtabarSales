@@ -1,14 +1,16 @@
-﻿<div class="container">
+<div class="container">
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="card-box">
-				<h4 class="header-title m-t-0 m-b-30">Stock Report Details</h4>
+				<h4 class="header-title m-t-0 m-b-30">T&amp;A Report Details</h4>
 				<div class="row">
 					<div class="col-md-3 pull-right" >
 						<div class="dataTables_filter">
 							<select class="form-control" ng-model="manager" ng-init= "manager = 0" > 
-							<option ng-value="0"> Filter By Managers</option>
-							<option ng-repeat="x in allmangs">{{x.Name}}</option>
+							<option ng-value="0"> Filter By SalesRep</option>
+							<option ng-value="Name"> {{Name}}</option>
+								
+							<option ng-repeat="x in allSalesRep">{{x.SalesRepName}}</option>
 							</select>
 						</div>
 					</div>
@@ -19,45 +21,44 @@
 							<tr>
 								<th class="text-center">
 									Sales Rep.
-									<a class="pull-right" ng-click="stockOrderField='DirectManager'; stockReverse = !stockReverse">
+									<a class="pull-right" ng-click="stockOrderField='SalesRepName'; stockReverse = !stockReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>	
+								<th class="text-center">
+									Doctor
+									<a class="pull-right" ng-click="stockOrderField='DoctorName'; stockReverse = !stockReverse">
                                         <span class="glyphicon glyphicon-sort pull-right"></span>
                                     </a>
 								</th>
 								<th class="text-center">
-									Category
-									<a class="pull-right" ng-click="stockOrderField='CategoryName'; stockReverse = !stockReverse">
-                                        <span class="glyphicon glyphicon-sort pull-right"></span>
-                                    </a>
-								</th>
-								
-								<th class="text-center">
-									Item
-									<a class="pull-right" ng-click="stockOrderField='ItemName'; stockReverse = !stockReverse">
-                                        <span class="glyphicon glyphicon-sort pull-right"></span>
-                                    </a>
-								</th>
-
-								<th class="text-center">
-									Start Balance
-									<a class="pull-right" ng-click="stockOrderField='StartBalance'; stockReverse = !stockReverse">
+									VisitDate
+									<a class="pull-right" ng-click="stockOrderField='VisitDate'; stockReverse = !stockReverse">
                                         <span class="glyphicon glyphicon-sort pull-right"></span>
                                     </a>
 								</th>
 								<th class="text-center">
-									Current Balance
-									<a class="pull-right" ng-click="stockOrderField='CurrentBalance'; stockReverse = !stockReverse">
+									VisitType
+									<a class="pull-right" ng-click="stockOrderField='AVT'; stockReverse = !stockReverse">
+                                        <span class="glyphicon glyphicon-sort pull-right"></span>
+                                    </a>
+								</th>
+								<th class="text-center">
+									Status
+									<a class="pull-right" ng-click="stockOrderField='AVT'; stockReverse = !stockReverse">
                                         <span class="glyphicon glyphicon-sort pull-right"></span>
                                     </a>
 								</th>
 							</tr>
 						</thead>	
 						<tbody class="text-center">
-							<tr ng-repeat="stck in allstcks | filter : {DirectManager : manager}" >
-								<td>{{stck.SalesRepName}}</td>
-								<td>{{stck.CategoryName}}</td>
-								<td>{{stck.ItemName}}</td>
-								<td>{{stck.StartBalance}}</td>
-								<td>{{stck.CurrentBalance}}</td>
+							<tr ng-repeat="r in report | filter :SalesRepName=manager">
+								<td>{{r.SalesRepName}}</td>
+								<td>{{r.DoctorName}}</td>
+								<td>{{r.VisitDate}}</td>
+								<td>{{r.VisitType}}</td>
+								<td>{{r.VisitStatus}}</td>
+								
 							</tr>
 						</tbody>
 					</table>
@@ -65,4 +66,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div>    

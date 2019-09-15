@@ -38,7 +38,7 @@
 							</tr>
 						</thead>	
 						<tbody class="text-center">
-							<tr ng-repeat="avt in allavts | filter : {DirectManager : manager}">
+							<tr ng-repeat="avt in allavts | filter : DirectManager = manager">
 								<td>{{avt.SalesRepName}}</td>
 								<td>{{avt.VisitsNo}}</td>
 								<td>{{avt.AVT}}</td>
@@ -49,4 +49,4 @@
 			</div>
 		</div>
 	</div>
-</div>    <script src="assets/js/jquery.app.js"></script>
+</div>    

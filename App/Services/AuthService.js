@@ -3,20 +3,37 @@
 
 	angular.module('app').factory('AuthService', AuthService);
 
-	AuthService.$inject = ['$rootScope' , '$http', 'BASE_URL', 'HTTP_HEADERS', '$cookies','AUTH_EVENTS'];
+	AuthService.$inject = ['$rootScope', '$http', 'BASE_URL', 'HTTP_HEADERS', '$cookies', 'AUTH_EVENTS'];
 
-	function AuthService( $rootScope , $http, BASE_URL, HTTP_HEADERS, $cookies,AUTH_EVENTS ) {
+	function AuthService($rootScope, $http, BASE_URL, HTTP_HEADERS, $cookies, AUTH_EVENTS) {
 		var authService = {};
-		var expiresdate = new Date(2040,12,1);
-
-		authService.login = function (credentials, x) {
-
-			var loginData = {
-				"Email": credentials.username,
+		var expiresdate = new Date(2040, 12, 1);
+		var a, b;
+		authService.login = function (credentials, x , y) {
+			console.log(y) ; 
+			if(y === 3){
+				var loginData = {		
+				"Name": credentials.username,
 				"Password": credentials.password,
 				"DeviceToken": "",
-				"CompanyID": 10
+				"CompanyID": 10,
+				"Louck": 1,
+				"employeeID": "6c699f76-e696-e711-80f5-000c29c47db9"
 			};
+				
+			}
+			else{
+				var loginData = {		
+				"Name": credentials.username,
+				"Password": credentials.password,
+				"DeviceToken": "",
+				"CompanyID": 10,
+				"Louck": 0,
+				"employeeID": "6c699f76-e696-e711-80f5-000c29c47db9"
+			};
+				
+			}
+			
 
 			return $http({
 				method: 'POST',
@@ -24,12 +41,16 @@
 				data: loginData,
 				headers: HTTP_HEADERS
 			}).then(function (res) {
-				
-				authService.RoleName = res.data.Response.RoleName ; 
-				authService.UserID = res.data.Response.UserID ; 
-				
+
+				authService.RoleName = res.data.Response.RoleName;
+				authService.UserID = res.data.Response.UserID;
+				$cookies.putObject('ZX_A', res.data.Response.UserID);
+				$cookies.putObject('MK_L', res.data.Response.RoleName);
+
+
+
 				if (x) {
-					
+
 					$cookies.putObject('SecurityToken', res.data.Response.SecurityToken, {
 						'expires': (expiresdate)
 					});
@@ -51,24 +72,23 @@
 					$cookies.putObject('Remme', "true", {
 						'expires': (expiresdate)
 					});
-					$cookies.putObject('SUB_NOTIFY' , 0 , {
+					$cookies.putObject('SUB_NOTIFY', 0, {
 						'expires': (expiresdate)
-					}) ; 
-					
-				}
-				else{
-					
-				$cookies.putObject('SecurityToken', res.data.Response.SecurityToken);
-				$cookies.putObject('UserID', res.data.Response.UserID);
-				$cookies.putObject('FullName', res.data.Response.FullName);
-				$cookies.putObject('ImageURL', res.data.Response.ImageURL);
-				$cookies.putObject('RoleID', res.data.Response.RoleID);
-				$cookies.putObject('RoleName', res.data.Response.RoleName);
-				$cookies.putObject('SUB_NOTIFY' , 0 ) ; 
-			
-				}	
+					});
 
-			}); 
+				} else {
+
+					$cookies.putObject('SecurityToken', res.data.Response.SecurityToken);
+					$cookies.putObject('UserID', res.data.Response.UserID);
+					$cookies.putObject('FullName', res.data.Response.FullName);
+					$cookies.putObject('ImageURL', res.data.Response.ImageURL);
+					$cookies.putObject('RoleID', res.data.Response.RoleID);
+					$cookies.putObject('RoleName', res.data.Response.RoleName);
+					$cookies.putObject('SUB_NOTIFY', 0);
+
+				}
+
+			});
 		};
 
 		authService.logout = function () {
@@ -78,8 +98,12 @@
 			$cookies.remove('ImageURL');
 			$cookies.remove('RoleID');
 			$cookies.remove('RoleName');
-			$cookies.remove('Remme') ; 
-			$cookies.remove('isloggedin') ; 
+			$cookies.remove('Remme');
+			$cookies.remove('isloggedin');
+			$cookies.remove('ZX_A');
+			$cookies.remove('MK_L');
+			
+			
 		};
 
 
@@ -90,6 +114,7 @@
 			return (authService.isAuthenticated() &&
 				authorizedRoles.indexOf(Session.userRole) !== -1);
 		};
+
 
 		return authService;
 	}

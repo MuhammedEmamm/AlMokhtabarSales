@@ -15,7 +15,7 @@
 	<link href="assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
 	<link href="assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-<!--			//<base href="/">-->
+	<!--			//<base href="/">-->
 
 
 	<!--Morris Chart CSS -->
@@ -44,7 +44,7 @@
 
 </head>
 
-<body ng-controller="ApplicationController"  ng-cloak>
+<body ng-controller="ApplicationController" ng-cloak>
 
 	<div id="wrapper" ng-if="$state.current.data.pageType === 'partial'">
 		<!-- Top Bar Start -->
@@ -59,9 +59,9 @@
 					<!-- Page title -->
 					<ul class="nav navbar-nav navbar-left">
 						<li>
-							<button class="button-menu-mobile open-left">
-                                <i class="zmdi zmdi-menu"></i>
-                            </button>
+							<a class="button-menu-mobile open-left" ng-click="open()" style="cursor: pointer;">
+								<i class="zmdi zmdi-menu"></i>
+							</a>
 						</li>
 						<li>
 							<h4 class="page-title">{{$state.current.data.pageTitle}}</h4>
@@ -76,8 +76,8 @@
 									<li>
 										<a class="right-bar-toggle" style="cursor: pointer ;" ng-click="aft7()">
 											<i class="zmdi zmdi-notifications-none"></i>
-                                        </a>
-										
+										</a>
+
 										<div class="noti-dot">
 
 											<span class="dot"></span>
@@ -105,13 +105,17 @@
 					<div class="user-img">
 						<img ng-src="http://{{ppUrl}}" onerror="this.src = 'assets/images/users/avatar-1.jpg'" alt="user-img" class="img-circle img-thumbnail img-responsive">
 					</div>
-					<h5><a>{{userName}}</a> </h5>
+					<h5 style="color:  #505458 ; font-family: 'Karla', sans-serif">{{userName}}</h5>
 					<ul class="list-inline">
 						<li>
 							<a ng-click="logout()" class="text-custom" style="cursor: pointer">
-                                <i class="zmdi zmdi-power"></i>
-                            </a>
+								<i class="zmdi zmdi-power"></i>
+							</a>
 						</li>
+						<br>
+						<li><a data-target="#UpdatePassword" data-toggle="modal" class="text-muted" style="cursor: pointer">
+								<i class="fa fa-lock m-r-5"></i> Update Password
+							</a></li>
 					</ul>
 				</div>
 				<!-- End User -->
@@ -120,56 +124,57 @@
 					<ul>
 						<li ng-if="role === 'SalesManager' || role === 'SalesAdmin' && role === Role && UID === UserID ">
 							<a ui-sref="TeamList" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'team'}">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span> My Team </span>
-                            </a>
+								<i class="glyphicon glyphicon-user"></i>
+								<span> My Team </span>
+							</a>
 						</li>
 						<li>
 							<a ui-sref="RequestsList" ng-class="{ 'active': $state.current.data.pageId === 'requests'}" class="waves-effect">
-                                <i class="glyphicon glyphicon-check"></i>
-                                <span> Pending Requests </span>
-                            </a>
+								<i class="glyphicon glyphicon-check"></i>
+								<span> Pending Requests </span>
+							</a>
 						</li>
 
 						<li>
 							<a ui-sref="Report" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'report'}">
-                                <i class="glyphicon glyphicon-stats"></i>
-                                <span> My Reports </span>
-                            </a>
-						</li>
-
-						<li ng-if="role === 'SalesRep' || role === 'SalesManager' && role === Role && UID === UserID">
-							<a ui-sref="DoctorsCreate" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'doctorCreate'}">
-                                <i class="glyphicon glyphicon-plus"></i>
-                                <span> New Doctor  </span>
-                            </a>
+								<i class="glyphicon glyphicon-stats"></i>
+								<span> My Reports </span>
+							</a>
 						</li>
 
 						<li>
-							<a ui-sref="DoctorsList" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'doctorList'}">
-                                <i class="glyphicon glyphicon-th-list"></i>
-                                <span> Doctors List </span>
-                            </a>
+							<a ui-sref="DoctorsCreate" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'doctorCreate'}">
+								<i class="glyphicon glyphicon-plus"></i>
+								<span> New Doctor </span>
+							</a>
 						</li>
 
-						<li ng-if="role === 'SalesRep' || role === 'SalesManager' && role === Role && UID === UserID">
+
+						<li>
+							<a ui-sref="DoctorsList" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'doctorList'}">
+								<i class="glyphicon glyphicon-th-list"></i>
+								<span> Doctors List </span>
+							</a>
+						</li>
+
+						<li>
 							<a ui-sref="TodayVisits" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'visits'}">
 								<i class="glyphicon glyphicon-time"></i>
 								<span> Today visit </span>
 							</a>
 						</li>
 
-						<li ng-if="role === 'SalesRep' || role === 'SalesManager' && role === Role && UID === UserID">
+						<li>
 							<a ui-sref="VisitPlan" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'plan'}">
-                                <i class="glyphicon glyphicon-calendar"></i>
-                                <span> Visit plan </span>
-                            </a>
+								<i class="glyphicon glyphicon-calendar"></i>
+								<span> Visit plan </span>
+							</a>
 						</li>
 						<li>
 							<a ng-if="role === 'SalesManager' || role === 'SalesAdmin' && role === Role && UID === UserID" ui-sref="Stock" class="waves-effect" ng-class="{ 'active': $state.current.data.pageId === 'stock'}">
-                                <i class="glyphicon glyphicon-gift"></i>
-                                <span> My stock </span>
-                            </a>
+								<i class="glyphicon glyphicon-gift"></i>
+								<span> My stock </span>
+							</a>
 						</li>
 					</ul>
 					<div class="clearfix"></div>
@@ -202,8 +207,8 @@
 		<div class=" right-bar sidebar">
 
 			<a class="right-bar-toggle" ng-click="aft7()">
-                <i class="zmdi zmdi-close-circle-o"></i>
-            </a>
+				<i class="zmdi zmdi-close-circle-o"></i>
+			</a>
 			<h4 class="">Notifications</h4>
 			<div class="notification-list nicescroll" style="overflow: scroll">
 				<ul class="list-group list-no-border user-list">
@@ -231,8 +236,45 @@
 
 	</div>
 
-	
-	
+	<div id="UpdatePassword" class="modal" role="dialog" style="overflow-y: scroll;">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header" style="padding-bottom: 0px;">
+					<h3 class="header-title m-t-0 m-b-30">Update Password</h3>
+				</div>
+				<div class="modal-body">
+					<form ng-submit="Updatepass()">
+						<div class="form-group">
+							<label style="color: black">Old Password</label>&nbsp;
+							<input type="password" ng-model="OP" placeholder="Old Password" class="form-control" required>
+
+						</div>
+
+						<br>
+						<div class="form-group">
+
+							<label style="color: black">New Password</label>&nbsp;
+							<input type="password" ng-model="NP" placeholder="New Password" class="form-control" required pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" minlength="8" title="Password should be min 8 characters and contain at least one letter, one number and one special character [!@#$%^&*(),.?:{}|<>]">
+						</div>
+
+						<div class="form-group">
+							<button type="submit" class="btn btn-success pull-right">Submit</button>
+							<br>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<div class="dropdown pull-right">
+						<button data-dismiss="modal" type="button" class="btn btn-success waves-effect w-md m-b-5">Ok</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 	<!--<div login-dialog ng-show="!isLoginPage"></div>-->
 	<script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -241,13 +283,13 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-animate.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
-	    <script src="http://rawgit.com/angular-ui/angular-google-maps/2.0.X/dist/angular-google-maps.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+	<script src="http://rawgit.com/angular-ui/angular-google-maps/2.0.X/dist/angular-google-maps.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHEf9V6oF75N3mH6aTrrGWBREjv8Bm6m4&sensor=true&language=en"></script>
+	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCkvmG59L4Gw0Q12gZ_dr93-MQVunoDYuM&sensor=true&language=en"></script>
 
 
 	<script src="Assets/JS/angular-cookies.min.js"></script>
@@ -264,8 +306,9 @@
 	<script src="App/Components/Report/StockReportjs.js"></script>
 	<script src="App/Components/Report/AvtReport.js"></script>
 	<script src="App/Components/Report/DetailedAmount.js"></script>
+	<script src="App/Components/Report/T&A.js"></script>
 	<script src="App/Components/Report/ReportListController.js"></script>
-	
+
 
 	<!-- Datatables-->
 	<script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -308,9 +351,9 @@
 
 
 	<script src="app/services/AuthService.js"></script>
-	
+
 	<script type="text/ng-template" id="warning-dialog.html">
-  <div class="modal-header">
+		<div class="modal-header">
    <h3>You're Idle. Do Something!</h3>
   </div>
   <div idle-countdown="countdown" ng-init="countdown=5" class="modal-body">
@@ -318,8 +361,8 @@
   </div>
 
 </script>
-<script type="text/ng-template" id="timedout-dialog.html">
-  <div class="modal-header">
+	<script type="text/ng-template" id="timedout-dialog.html">
+		<div class="modal-header">
    <h3>You've Timed Out!</h3>
   </div>
   <div class="modal-body">
@@ -328,7 +371,7 @@
    </p>
  </div>
 </script>
-	
+
 </body>
 
 </html>

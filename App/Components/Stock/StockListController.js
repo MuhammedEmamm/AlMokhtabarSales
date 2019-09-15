@@ -156,9 +156,9 @@
             });
         };
 
-
-        getStockReport();
+        if($scope.role === 'SalesAdmin')
         getManagers();
+        getStockReport();
         getReps();
         getCategories();
     }

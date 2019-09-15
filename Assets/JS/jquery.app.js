@@ -4,6 +4,7 @@
 * Module/App: Main Js
 */
 
+	 var resizefunc = [];
 
 !function($) {
     "use strict";
@@ -15,7 +16,6 @@
     };
     Sidemenu.prototype.openLeftBar = function() {
       $("#wrapper").toggleClass("enlarged");
-      $("#wrapper").addClass("forced");
 
       if($("#wrapper").hasClass("enlarged") && $("body").hasClass("fixed-left")) {
         $("body").removeClass("fixed-left").addClass("fixed-left-void");
@@ -143,7 +143,8 @@ function($) {
 //main app module
  function($) {
     "use strict";
-
+	
+	
     var App = function() {
         this.VERSION = "1.5.0",
         this.AUTHOR = "Coderthemes",
@@ -166,11 +167,9 @@ function($) {
       $(window).resize(debounce(resizeitems,100));
       $("body").trigger("resize");
 
-      // right side-bar toggle
-      $('.right-bar-toggle').on('click', function(e){
-
-          $('#wrapper').toggleClass('right-bar-enabled');
-      });
+      //
+			
+	
 
 
     },

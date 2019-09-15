@@ -5,7 +5,7 @@
 
     AvtReportController.$inject = ['$scope', '$rootScope', '$state', '$http','BASE_URL', 'HTTP_HEADERS','$cookies'];
 
-    function AvtReportController($scope, $rootScope, $state, $http, AuthService, Session, BASE_URL, HTTP_HEADERS,$cookies) {
+    function AvtReportController($scope, $rootScope, $state, $http, BASE_URL, HTTP_HEADERS,$cookies) {
 			if($cookies.getObject('isloggedin')!== 'true'){
 				$state.go('Login') ; 
 			}
